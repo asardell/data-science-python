@@ -2,7 +2,7 @@
 **Durée : 3 jours — Théorie + Pratique + Mini-projets**  
 **Dataset principal : Données DPE issues de l’API ADEME**
 
-## 🎯 Objectifs de la formation
+## Objectifs de la formation
 
 Cette formation a pour but de donner aux participants les **bases solides** et les **bonnes pratiques** nécessaires pour :
 
@@ -13,9 +13,9 @@ Cette formation a pour but de donner aux participants les **bases solides** et l
 - Construire une interface utilisateur simple (Streamlit)  
 - Emballer et déployer un modèle dans un conteneur Docker  
 
-👉 À l’issue de la formation, les participants seront capables de **réaliser un projet de Machine Learning de bout en bout**, depuis les données brutes jusqu’au modèle utilisable.
+À l’issue de la formation, les participants seront capables de **réaliser un projet de Machine Learning de bout en bout**, depuis les données brutes jusqu’au modèle utilisable.
 
-## 🧭 Public visé
+## Public visé
 
 - Développeurs  
 - Data analysts  
@@ -23,7 +23,7 @@ Cette formation a pour but de donner aux participants les **bases solides** et l
 - Toute personne souhaitant acquérir les fondamentaux  
 - Niveau maths : lycée (minimum recommandé)
 
-## ⚡ Enjeux pédagogiques
+## Enjeux pédagogiques
 
 La formation répond à des besoins concrets en entreprise :  
 - Comprendre les données et les transformer en valeur  
@@ -33,7 +33,7 @@ La formation répond à des besoins concrets en entreprise :
 
 L’objectif est d’être **100% opérationnel** à l’issue du parcours.
 
-# 🏢 Contexte du jeu de données ADEME (DPE)
+# Contexte du jeu de données ADEME (DPE)
 
 Tout au long de la formation, nous travaillerons avec un dataset fourni par l’**ADEME** (Agence de la transition écologique), contenant les résultats des **Diagnostics de Performance Énergétique (DPE)**.
 
@@ -51,7 +51,7 @@ Ce dataset est idéal pour la formation car :
 - Il permet de créer des cas réels de régression, classification, clustering  
 - Il nécessite un vrai travail de **préparation**, comme en entreprise  
 
-## 🧩 Compétences développées pendant la formation
+## Compétences développées pendant la formation
 
 - Comprendre les fondamentaux de la Data Science  
 - Utiliser les librairies Python : **NumPy, Pandas, Matplotlib, Seaborn, Scikit-learn**  
@@ -67,13 +67,13 @@ Ce dataset est idéal pour la formation car :
 - Créer une interface utilisateur (Streamlit)  
 - Conteneuriser un projet ML avec Docker  
 
-## 🏁 Organisation générale du parcours
+## Organisation générale du parcours
 
 - **Jour 1 :** Python, Data Science, manipulation des données  
 - **Jour 2 :** Machine Learning (supervisé / non supervisé) + Explicabilité  
 - **Jour 3 :** Spark MLlib + Packaging + Streamlit + Docker
 
-## 🔧 Ressources utilisées
+## Ressources utilisées
 
 - **Python 3.10+**  
 - **Jupyter Notebook**  
