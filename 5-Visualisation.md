@@ -29,7 +29,6 @@ Nous utiliserons trois bibliothèques : Matplotlib, Seaborn, et Plotly.
   - [Cartographie avec Folium](#cartographie-avec-folium)
 
 
----
 
 ## Introduction aux bibliothèques
 
@@ -48,7 +47,6 @@ Nous utiliserons trois bibliothèques : Matplotlib, Seaborn, et Plotly.
 - Permet zoom, survol, filtrage dynamique
 - Très pratique pour les dashboards et présentations
 
----
 
 ## Graphiques univariés
 
@@ -227,7 +225,6 @@ fig = px.box(df, x='etiquette_dpe', y='besoin_chauffage', title="Besoin chauffag
 fig.show()
 ```
 
----
 
 ## Graphiques multivariés
 

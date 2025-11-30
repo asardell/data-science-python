@@ -70,7 +70,7 @@ Ce dataset est idéal pour la formation car :
 ## Organisation générale du parcours
 
 - **Jour 1 :** Python, Data Science, manipulation des données  
-- **Jour 2 :** Machine Learning (supervisé / non supervisé) + Explicabilité  
+- **Jour 2 :** Machine Learning (supervisé / non supervisé)  
 - **Jour 3 :** Spark MLlib + Packaging + Streamlit + Docker
 
 ## Ressources utilisées
