@@ -1,8 +1,8 @@
-# Chapitre 3 : Structuration du code et bonnes pratiques
+# Chapitre 3 : Bonnes pratiques python
 
 Dans ce chapitre, nous allons aborder des notions qui permettent de **mieux organiser votre code Python**, le rendre **plus robuste**, et préparer l'environnement pour travailler sur des bibliothèques comme Pandas.
 
-- [Chapitre 3 : Structuration du code et bonnes pratiques](#chapitre-3--structuration-du-code-et-bonnes-pratiques)
+- [Chapitre 3 : Bonnes pratiques python](#chapitre-3--bonnes-pratiques-python)
   - [Gestion des erreurs et exceptions](#gestion-des-erreurs-et-exceptions)
     - [Exemple](#exemple)
     - [Exercice : Gestion des erreurs et exceptions lors de l'interrogation de l'API ADEME](#exercice--gestion-des-erreurs-et-exceptions-lors-de-linterrogation-de-lapi-ademe)
