@@ -9,6 +9,7 @@
       - [Random Forest](#random-forest)
       - [K-Nearest Neighbors (KNN)](#k-nearest-neighbors-knn)
       - [Régression logistique](#régression-logistique)
+      - [Naive Bayes](#naive-bayes)
       - [Support Vector Machine (SVM)](#support-vector-machine-svm)
       - [Gradient Boosting / XGBoost](#gradient-boosting--xgboost)
     - [Evaluation des modèles](#evaluation-des-modèles)
@@ -42,6 +43,69 @@
       - [Évaluation sur l’échantillon test](#évaluation-sur-léchantillon-test)
         - [Prédictions et métriques classiques](#prédictions-et-métriques-classiques)
         - [Courbe ROC pour comparer les modèles](#courbe-roc-pour-comparer-les-modèles)
+  - [K-Nearest Neighbors (KNN)](#k-nearest-neighbors-knn-1)
+    - [Introduction à KNN](#introduction-à-knn)
+    - [Configuration du modèle KNN](#configuration-du-modèle-knn)
+    - [Évaluation du modèle](#évaluation-du-modèle)
+      - [Matrice de confusion](#matrice-de-confusion-1)
+      - [Calcul des métriques](#calcul-des-métriques)
+  - [Régression Logistique](#régression-logistique-1)
+    - [Présentation de la méthode](#présentation-de-la-méthode)
+    - [Hyperparamètres importants](#hyperparamètres-importants)
+    - [Définir la grille de recherche](#définir-la-grille-de-recherche)
+    - [Mise en œuvre du Grid Search](#mise-en-œuvre-du-grid-search)
+      - [Analyse des coefficients](#analyse-des-coefficients)
+    - [Prédiction sur l’échantillon test](#prédiction-sur-léchantillon-test)
+    - [Évaluation du modèle](#évaluation-du-modèle-1)
+      - [Matrice de confusion et métriques](#matrice-de-confusion-et-métriques)
+  - [Méthodes bayésiennes — Gaussian Naive Bayes](#méthodes-bayésiennes--gaussian-naive-bayes)
+    - [Introduction](#introduction-1)
+    - [Pourquoi utiliser une baseline ?](#pourquoi-utiliser-une-baseline-)
+    - [Le modèle Gaussian Naive Bayes (GNB)](#le-modèle-gaussian-naive-bayes-gnb)
+      - [Hypothèses](#hypothèses)
+      - [Avantages](#avantages)
+      - [Inconvénients](#inconvénients)
+      - [Entraînement du modèle](#entraînement-du-modèle)
+      - [Prédictions](#prédictions)
+      - [Matrice de confusion](#matrice-de-confusion-2)
+      - [Métriques de performance](#métriques-de-performance)
+  - [Support Vector Machines (SVM)](#support-vector-machines-svm)
+    - [Introduction](#introduction-2)
+    - [Principes](#principes)
+    - [Avantages](#avantages-1)
+    - [Inconvénients](#inconvénients-1)
+    - [Implémentation Python](#implémentation-python)
+    - [Notes pédagogiques](#notes-pédagogiques)
+  - [Random Forest](#random-forest-1)
+    - [Introduction à Random Forest](#introduction-à-random-forest)
+    - [Principe du Bagging (Bootstrap Aggregating)](#principe-du-bagging-bootstrap-aggregating)
+      - [Fonctionnement :](#fonctionnement-)
+      - [Avantages du bagging :](#avantages-du-bagging-)
+    - [Hyperparamètres](#hyperparamètres)
+    - [Importance des variables](#importance-des-variables)
+    - [Implémentation](#implémentation)
+    - [Évaluation du modèle](#évaluation-du-modèle-2)
+    - [Feature Importance](#feature-importance)
+    - [Conclusion](#conclusion)
+  - [Gradient Boosting](#gradient-boosting)
+    - [Comprendre le Boosting](#comprendre-le-boosting)
+    - [La fonction de perte (loss function)](#la-fonction-de-perte-loss-function)
+    - [Boosting vs Bagging](#boosting-vs-bagging)
+    - [Pourquoi XGBoost ?](#pourquoi-xgboost-)
+    - [Hyperparamètres](#hyperparamètres-1)
+    - [Implémentation Complète de XGBoost en Python](#implémentation-complète-de-xgboost-en-python)
+    - [Modèle initial](#modèle-initial)
+    - [Grille de paramètres](#grille-de-paramètres)
+    - [Grid Search](#grid-search)
+    - [Modèle final](#modèle-final)
+    - [Évaluation du Modèle](#évaluation-du-modèle-3)
+    - [Importance des Variables](#importance-des-variables-1)
+    - [Avantages et Inconvénients](#avantages-et-inconvénients)
+      - [Avantages](#avantages-2)
+      - [Inconvénients](#inconvénients-2)
+    - [Conseils pratiques](#conseils-pratiques)
+    - [Conclusion](#conclusion-1)
+  - [Récapitulatif](#récapitulatif)
 
 ## Introduction à la classification
 
@@ -51,8 +115,6 @@ La **classification** est une sous-catégorie de l’apprentissage supervisé. E
 
 - Variables explicatives : surface habitable, consommation chauffage, type de logement, année de construction, etc.
 - Variable cible : `passoire énergétique` (Oui / Non) ou `étiquette DPE` (A, B, C, D, E, F, G)
-
----
 
 ## Méthodologie générale
 
@@ -77,7 +139,6 @@ La **classification** est une sous-catégorie de l’apprentissage supervisé. E
    - Encodage des variables catégorielles (Label Encoding ou One-Hot)  
    - Normalisation ou standardisation si certaines méthodes le nécessitent (SVM, KNN)
 
----
 
 ### Méthodes de classification
 
@@ -101,6 +162,12 @@ La **classification** est une sous-catégorie de l’apprentissage supervisé. E
 - Avantages : probabilités interprétables, fonctionne bien pour 2 classes.
 - Inconvénients : linéarité supposée entre variables et logit, moins performant pour relations complexes.
 
+#### Naive Bayes
+
+- Principe : modèle probabiliste basé sur le théorème de Bayes, supposant que les variables explicatives sont indépendantes conditionnellement à la classe.
+- Avantages : très rapide, fonctionne bien même avec peu de données, robuste au bruit, excellent pour les données textuelles.
+- Inconvénients : l’hypothèse d’indépendance est rarement vraie, ce qui peut réduire la précision ; moins performant sur des relations complexes entre variables.
+
 #### Support Vector Machine (SVM)
 - Principe : séparer les classes en maximisant la **marge** entre elles.
 - Avantages : efficace pour données non linéaires via kernels.
@@ -112,7 +179,6 @@ La **classification** est une sous-catégorie de l’apprentissage supervisé. E
 - Avantages : très performant, peut gérer données non linéaires et interactions complexes, options de régularisation.
 - Inconvénients : paramétrage complexe, sensible au surapprentissage si mal réglé, moins interprétable.
 
----
 
 ### Evaluation des modèles
 
@@ -145,7 +211,6 @@ Pour comparer et interpréter les modèles de classification, plusieurs **métri
 - Permettent de visualiser le compromis entre **taux de vrais positifs** et **taux de faux positifs**.  
 - L’AUC mesure la capacité globale du modèle à distinguer les classes (1 = parfait, 0.5 = hasard).
 
----
 
 ### Exemple illustratif
 
@@ -515,3 +580,766 @@ plt.title('Comparaison ROC entre modèles d\'arbre')
 plt.legend(loc='lower right')
 plt.show()
 ```
+
+## K-Nearest Neighbors (KNN)
+
+### Introduction à KNN
+
+**Principe** :
+KNN (K-Nearest Neighbors) est une méthode d'apprentissage supervisé utilisée pour la classification (ou régression).
+- Pour classer un nouvel individu, KNN regarde les **K plus proches voisins** dans l’espace des variables explicatives et attribue la classe majoritaire parmi ces voisins.
+- La proximité est généralement mesurée avec la distance euclidienne, mais d’autres distances peuvent être utilisées.
+
+**Avantages :**
+- Simple à comprendre et à implémenter.
+- Non paramétrique : aucune hypothèse sur la distribution des données.
+
+**Inconvénients :**
+- Sensible aux variables sur des échelles différentes (nécessite normalisation).
+- Peu efficace pour de très grandes bases de données.
+- Choix du paramètre K crucial : trop petit → bruit, trop grand → perte de sensibilité locale.
+
+
+### Configuration du modèle KNN
+
+**Paramètres du modèle :**
+- `n_neighbors` : nombre de voisins à considérer pour la classification.
+- `weights` : "uniform" (tous les voisins ont le même poids) ou "distance" (pondération inversement proportionnelle à la distance).
+- `metric` : type de distance pour calculer la proximité ("euclidean", "manhattan", etc.).
+
+
+```python
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import f1_score, make_scorer, classification_report
+
+# Définition du modèle KNN
+knn = KNeighborsClassifier()
+
+# Paramètres à tester dans Grid Search
+param_grid = {
+    'n_neighbors': [3, 5, 7, 9, 11],
+    'weights': ['uniform', 'distance'],
+    'metric': ['euclidean', 'manhattan']
+}
+
+# Définir le scorer : f1 pour la classe positive
+f1_scorer = make_scorer(f1_score, pos_label=0)
+
+# Grid Search
+grid_knn = GridSearchCV(knn, param_grid, scoring=f1_scorer, cv=5, verbose=2)
+grid_knn.fit(X_train, y_train)
+
+# Meilleur modèle
+best_knn = grid_knn.best_estimator_
+print("Meilleur modèle KNN :", best_knn)
+print("Meilleur score f1 (classe 0) :", grid_knn.best_score_)
+
+# Prédictions sur l'ensemble de test
+y_pred_knn = best_knn.predict(X_test)
+```
+
+### Évaluation du modèle
+
+#### Matrice de confusion
+
+```python
+import pandas as pd
+from sklearn.metrics import confusion_matrix
+
+mc_knn = pd.DataFrame(confusion_matrix(y_test, y_pred_knn),
+                      columns=['pred_0','pred_1'],
+                      index=['obs_0','obs_1'])
+print(mc_knn)
+```
+
+#### Calcul des métriques
+
+```python
+from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
+
+print("Accuracy :", accuracy_score(y_test, y_pred_knn))
+print("Recall (classe 0) :", recall_score(y_test, y_pred_knn, pos_label=0))
+print("Precision (classe 0) :", precision_score(y_test, y_pred_knn, pos_label=0))
+print("F1-score (classe 0) :", f1_score(y_test, y_pred_knn, pos_label=0))
+```
+
+## Régression Logistique
+
+### Présentation de la méthode
+
+- La **régression logistique** est utilisée pour la classification binaire ou multi-classes.
+- Modélise la **probabilité** qu’une observation appartienne à une classe à partir d’une combinaison linéaire des variables explicatives.
+- Avantages :
+  - Simple, interprétable, rapide.
+  - Permet d’évaluer l’importance des variables via les coefficients.
+- Inconvénients :
+  - Ne gère pas naturellement les relations non linéaires.
+  - Sensible aux variables corrélées.
+  - Nécessite standardisation pour certaines régularisations.
+
+
+Même si la régression logistique est utilisée pour **des problèmes de classification** (par exemple, prédire si un logement est éligible à la prime rénov ou non), elle repose sur **un modèle linéaire sous-jacent** :
+
+1. **Transformation linéaire des variables explicatives**  
+   La régression logistique calcule une **combinaison linéaire** des variables explicatives, exactement comme dans une régression linéaire classique :
+
+   ```
+   z = b0 + b1*x1 + b2*x2 + ... + bn*xn
+   ```
+
+   Ici, `z` est une valeur continue qui résume l’influence des variables sur la probabilité d’appartenance à la classe cible.
+
+2. **Fonction logistique (sigmoïde)**  
+   Pour transformer cette combinaison linéaire `z` en une **probabilité comprise entre 0 et 1**, on applique la **fonction sigmoïde** :
+
+   ```
+   p = 1 / (1 + exp(-z))
+   ```
+
+   Cette probabilité `p` représente la chance que l’observation appartienne à la classe positive.
+
+3. **Classification finale**  
+   On fixe un **seuil** (souvent 0.5) pour décider de la classe :  
+   - Si `p >= 0.5`, l’observation est classée comme positive.  
+   - Sinon, elle est classée comme négative.
+
+4. **Pourquoi linéaire ?**  
+   - Les coefficients `b1, b2, …` indiquent l’influence **linéaire** de chaque variable sur le score `z`.  
+   - La non-linéarité de la classification vient **de la transformation sigmoïde**, pas des coefficients eux-mêmes.  
+   - C’est pour ça qu’on parle de **modèle linéaire pour un problème de classification** : la structure du modèle reste linéaire dans les paramètres, mais la sortie est convertie en probabilité.
+
+5. **Avantages de cette approche**  
+   - Simple à interpréter : chaque coefficient indique l’impact sur le log-odds.  
+   - Rapide à entraîner et efficace sur des données de taille moyenne.
+
+6. **Limites**  
+   - Suppose que la relation entre les variables et le log-odds est **linéaire**.  
+   - Ne gère pas facilement les interactions complexes ou les relations fortement non linéaires.  
+     (Dans ce cas, on peut envisager des transformations ou des modèles plus flexibles comme les arbres ou SVM).
+
+
+### Hyperparamètres importants
+
+- `penalty` : type de régularisation (`l1`, `l2`, `elasticnet`, `none`).
+- `C` : inverse de la force de régularisation (plus C est grand, moins la régularisation est forte).
+- `solver` : algorithme d’optimisation (`liblinear`, `lbfgs`, `saga`…).
+- `max_iter` : nombre maximum d’itérations pour la convergence.
+
+
+### Définir la grille de recherche
+
+```python
+import numpy as np
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import make_scorer, f1_score
+
+# Hyperparamètres à tester
+param_grid = {
+    'penalty': ['l1', 'l2'],
+    'C': [0.01, 0.1, 1, 10],
+    'solver': ['liblinear', 'saga'],
+    'max_iter': [500, 1000]
+}
+
+# Choix de la métrique F1 pour la classe positive (pos_label=0)
+scorer = make_scorer(f1_score, pos_label=0)
+```
+
+
+### Mise en œuvre du Grid Search
+
+```python
+# Création du modèle de base
+log_reg = LogisticRegression()
+
+# Grid Search avec validation croisée 5 plis
+grid_search = GridSearchCV(log_reg, param_grid, scoring=scorer, cv=5, verbose=2)
+grid_search.fit(X_train, y_train)
+
+# Meilleurs paramètres
+best_model = grid_search.best_estimator_
+print("Meilleurs paramètres :", grid_search.best_params_)
+print("Meilleur score F1 (CV) :", grid_search.best_score_)
+```
+
+#### Analyse des coefficients
+
+```python
+coef = pd.DataFrame(best_model.coef_[0], index=X_train.columns, columns=['Coef'])
+coef.loc['Intercept'] = best_model.intercept_
+print(coef)
+```
+
+- Chaque coefficient représente l’effet de la variable sur la **log-odds** de la classe positive.
+- Signe positif → augmente la probabilité d’appartenir à la classe 1.
+- Signe négatif → augmente la probabilité d’appartenir à la classe 0.
+
+### Prédiction sur l’échantillon test
+
+```python
+# Prédiction des classes
+y_pred = best_model.predict(X_test)
+
+# Probabilités pour la classe positive (0)
+y_pred_proba = best_model.predict_proba(X_test)[:, 0]
+```
+
+### Évaluation du modèle
+
+#### Matrice de confusion et métriques
+
+```python
+from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
+
+mc = pd.DataFrame(confusion_matrix(y_test, y_pred),
+                  columns=['pred_0','pred_1'],
+                  index=['obs_0','obs_1'])
+print(mc)
+
+# Accuracy
+print("Accuracy:", accuracy_score(y_test, y_pred))
+
+# Recall, Precision, F1 pour pos_label=0
+print("Recall (pos_label=0):", recall_score(y_test, y_pred, pos_label=0))
+print("Precision (pos_label=0):", precision_score(y_test, y_pred, pos_label=0))
+print("F1-score (pos_label=0):", f1_score(y_test, y_pred, pos_label=0))
+```
+
+
+
+## Méthodes bayésiennes — Gaussian Naive Bayes  
+
+### Introduction
+
+Les méthodes bayésiennes reposent sur le **théorème de Bayes**, permettant d’estimer la probabilité qu’un individu appartienne à une classe donnée en tenant compte des données observées.
+
+Formule générale du théorème de Bayes :
+
+P(classe | données) = P(données | classe) × P(classe) / P(données)
+
+Un classifieur bayésien choisit la classe **maximisant la probabilité a posteriori**.
+
+Naive Bayes n’est généralement pas le modèle principal dans des pipelines industriels avancés.  
+Il sert surtout comme :
+
+- **baseline rapide** (modèle de référence initial)
+- modèle phare dans le **traitement du texte (NLP)**  
+  (spam filtering, classification de documents)
+- méthode très efficace dans des **cas simples** où l’hypothèse d’indépendance est acceptable
+
+
+Une **baseline** (ou *modèle de référence*) est un modèle simple, rapide à entraîner, utilisé comme **point de départ** pour évaluer les modèles plus complexes.
+
+
+### Pourquoi utiliser une baseline ?
+
+La baseline sert à répondre à une question essentielle : **« Est-ce que les modèles plus avancés améliorent vraiment les performances ? »**
+
+Elle permet de :
+
+- disposer d’un **niveau minimal de performance** ;
+- détecter si un modèle complexe **n’apporte rien** ;
+- éviter du sur-apprentissage technologique (utiliser un gros modèle alors qu’un simple suffit).
+
+
+Exemples typiques de baseline
+
+- **Naive Bayes**  
+- **KNN avec petite valeur de k**  
+- **Arbre de décision peu profond**  
+
+:bulb: À quoi ça sert concrètement ?
+
+- Si un modèle complexe **ne fait pas mieux** que la baseline il n’est pas utile ou mal paramétré.
+- Si un modèle complexe **surpasse la baseline**  l’amélioration est justifiée.
+- Si la baseline est **déjà très performante** inutile de chercher un modèle plus lourd.
+
+### Le modèle Gaussian Naive Bayes (GNB)
+
+####  Hypothèses
+
+Gaussian Naive Bayes repose sur deux hypothèses :
+
+1. **Indépendance conditionnelle** entre toutes les variables explicatives  
+2. **Distribution normale (gaussienne)** des variables dans chaque classe
+
+Même si ces hypothèses sont rarement parfaitement vérifiées, le modèle fonctionne étonnamment bien dans de nombreux cas.
+
+#### Avantages
+- Très rapide à entraîner
+- Performant même avec peu de données
+- Insensible aux valeurs manquantes si elles sont gérées en amont
+
+#### Inconvénients
+- Hypothèse d’indépendance souvent irréaliste
+- Moins performant si variables fortement corrélées
+- Suppose des distributions gaussiennes pour chaque variable
+
+
+#### Entraînement du modèle
+
+```python
+from sklearn.naive_bayes import GaussianNB
+
+model_gnb = GaussianNB()
+model_gnb.fit(X_train, y_train)
+```
+
+#### Prédictions
+
+```python
+y_pred = model_gnb.predict(X_test)
+y_proba = model_gnb.predict_proba(X_test)
+```
+
+#### Matrice de confusion
+
+```python
+from sklearn.metrics import confusion_matrix
+import pandas as pd
+
+mc = pd.DataFrame(
+    confusion_matrix(y_test, y_pred),
+    columns=['pred_0','pred_1'],
+    index=['obs_0','obs_1']
+)
+mc
+```
+
+#### Métriques de performance
+
+```python
+from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
+
+print("Accuracy :", accuracy_score(y_test, y_pred))
+print("Recall (classe 0) :", recall_score(y_test, y_pred, average='binary', pos_label=0))
+print("Precision (classe 0) :", precision_score(y_test, y_pred, average='binary', pos_label=0))
+print("F1-score (classe 0) :", f1_score(y_test, y_pred, average='binary', pos_label=0))
+```
+
+
+## Support Vector Machines (SVM)
+
+###  Introduction
+
+Le **SVM (Support Vector Machine)** est une méthode de classification supervisée qui cherche à **séparer les classes en maximisant la marge** entre elles. Elle peut être utilisée pour des problèmes linéaires ou non linéaires via des kernels.
+
+### Principes
+- Trouver l'hyperplan qui sépare les classes avec la **marge maximale**.
+- Les points les plus proches de l'hyperplan sont appelés **support vectors**.
+- Peut gérer des classes non linéairement séparables grâce à des **kernels** (linéaire, polynomial, RBF, sigmoïde).
+
+### Avantages
+- Efficace pour des jeux de données avec **beaucoup de variables**.
+- Gère bien les problèmes linéaires et non linéaires via les kernels.
+- Robuste aux points aberrants si bien paramétré.
+
+### Inconvénients
+- Paramétrage délicat : choix du kernel, valeur de `C`, paramètre `gamma`.
+- Peu interprétable : difficile de visualiser l'impact de chaque variable.
+- Coût computationnel élevé pour de très grands jeux de données.
+
+#####Hyperparamètres importants
+- `C` : régularisation, contrôle le compromis entre marge large et erreurs sur l'apprentissage.
+- `kernel` : type de fonction noyau (`linear`, `poly`, `rbf`, `sigmoid`).
+- `gamma` : influence des points proches sur la séparation (pour `rbf` et `poly`).
+- `degree` : degré du polynôme si kernel = `poly`.
+
+### Implémentation Python
+
+```python
+from sklearn.svm import SVC
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import classification_report, f1_score, roc_curve, roc_auc_score
+from sklearn.preprocessing import StandardScaler
+
+# Normalisation
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+# Définition du modèle
+svm_model = SVC(probability=True, random_state=42)
+
+# Paramètres pour Grid Search
+param_grid = {
+    'C': [0.1, 1, 10],
+    'kernel': ['linear', 'rbf'],
+    'gamma': ['scale', 0.01, 0.1]
+}
+
+# Grid Search avec f1_score pour la classe positive
+grid_svm = GridSearchCV(svm_model, param_grid, scoring='f1', cv=5, verbose=2)
+grid_svm.fit(X_train_scaled, y_train)
+
+# Meilleur modèle
+best_svm = grid_svm.best_estimator_
+print("Meilleurs paramètres :", grid_svm.best_params_)
+
+# Prédictions
+y_pred_svm = best_svm.predict(X_test_scaled)
+y_pred_proba_svm = best_svm.predict_proba(X_test_scaled)[:,1]
+
+# Évaluation
+print(classification_report(y_test, y_pred_svm))
+
+# f1_score macro et weighted
+print('f1_score macro :', f1_score(y_test, y_pred_svm, average='macro'))
+print('f1_score weighted :', f1_score(y_test, y_pred_svm, average='weighted'))
+```
+
+### Notes pédagogiques
+- Toujours **normaliser** avant SVM.
+- Grid Search permet de trouver la **meilleure combinaison de paramètres**.
+- `f1_score` pour la classe positive est critique si les classes sont déséquilibrées.
+- La courbe ROC permet de comparer facilement ce modèle avec des arbres de décision, KNN ou régression logistique.
+- SVM est **sensible aux outliers**, donc parfois utile de faire du preprocessing pour limiter leur impact.
+
+
+## Random Forest
+
+### Introduction à Random Forest
+Random Forest est un algorithme de **machine learning supervisé**, fondé sur un ensemble d’arbres de décision.  
+Il sert à la **classification** comme à la **régression**, mais ici nous nous concentrons sur la classification.
+
+Le principe est simple :
+> On construit plusieurs arbres différents, puis on combine leurs prédictions.
+
+### Principe du Bagging (Bootstrap Aggregating)
+
+Le **bagging** est la technique fondamentale derrière Random Forest.
+
+#### Fonctionnement :
+1. On crée plusieurs échantillons par **bootstrap** (tirage aléatoire *avec remise*).  
+2. Pour chaque échantillon, on entraîne un arbre indépendant.  
+3. On combine les prédictions :  
+   - Vote majoritaire pour la classification  
+   - Moyenne pour la régression  
+
+<p align="center">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Ensemble_Bagging.svg/1200px-Ensemble_Bagging.svg.png" alt="Source de l'image" width="600"/>
+</p>
+
+#### Avantages du bagging :
+- Réduction de la variance  
+- Moins sensible au surapprentissage qu'un arbre seul  
+- Très robuste aux données bruitées  
+
+### Hyperparamètres
+
+| Paramètre | Description |
+|----------|-------------|
+| **n_estimators** | Nombre d'arbres dans la forêt |
+| **max_depth** | Profondeur maximale de chaque arbre |
+| **min_samples_split** | Nb minimum d'observations pour diviser un nœud |
+| **min_samples_leaf** | Nb minimum d’observations dans une feuille |
+| **max_features** | Nombre de variables utilisées à chaque division |
+
+### Importance des variables
+
+Random Forest fournit une estimation de la contribution de chaque variable.
+
+### Implémentation
+
+
+```python
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import f1_score, classification_report, roc_curve, auc
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Modèle initial
+rf = RandomForestClassifier(random_state=42)
+
+# Grille des hyperparamètres
+param_grid = {
+    'n_estimators': [100, 300],
+    'max_depth': [5, 10, None],
+    'min_samples_split': [2, 10],
+    'min_samples_leaf': [1, 5],
+    'max_features': ['sqrt', 'log2']
+}
+
+# Grid Search optimisant le F1 macro
+grid_search_rf = GridSearchCV(
+    estimator=rf,
+    param_grid=param_grid,
+    scoring='f1_macro',
+    cv=5,
+    n_jobs=-1
+)
+
+grid_search_rf.fit(X_train, y_train)
+
+print("Meilleurs paramètres :", grid_search_rf.best_params_)
+
+# Extraction du meilleur modèle
+best_rf = grid_search_rf.best_estimator_
+```
+
+
+### Évaluation du modèle
+
+```python
+y_pred_rf = best_rf.predict(X_test)
+
+print(classification_report(y_test, y_pred_rf))
+```
+
+
+### Feature Importance
+
+```python
+importances = pd.DataFrame({
+    'Feature': X_train.columns,
+    'Importance': best_rf.feature_importances_
+}).sort_values(by='Importance', ascending=False)
+
+print(importances)
+
+plt.figure(figsize=(10,6))
+plt.bar(importances['Feature'], importances['Importance'])
+plt.xticks(rotation=45)
+plt.title("Feature Importances — Random Forest")
+plt.show()
+```
+
+### Conclusion
+
+- Random Forest utilise le **bagging**, ce qui le rend très robuste.  
+- Il réduit largement le surapprentissage des arbres de décision.  
+- Il fournit naturellement une mesure de l’importance des variables.  
+
+
+## Gradient Boosting
+
+### Comprendre le Boosting
+
+Le boosting consiste à entraîner plusieurs arbres **les uns après les autres**, chaque nouvel arbre cherchant à **corriger les erreurs** des précédents.
+
+À chaque itération :
+
+- Le modèle précédent commet des erreurs.
+- On ajuste un nouvel arbre court (souvent profondeur 1 à 3) pour corriger ces erreurs.
+- On ajoute cet arbre au modèle final.
+
+Le modèle apprend donc **progressivement**, arbre après arbre.
+Chaque nouvel arbre est entraîné sur le gradient de la **fonction de perte**, d’où le nom **Gradient Boosting**.
+
+### La fonction de perte (loss function)
+
+La **fonction de perte** est une mesure numérique qui quantifie **à quel point le modèle se trompe** sur les données d’entraînement.
+
+Elle calcule l’écart entre :  
+
+- les **valeurs prédites par le modèle**  
+- et les **valeurs réelles** de la variable cible.  
+
+Plus la fonction de perte est grande, plus le modèle fait des erreurs. L’objectif de l’apprentissage est donc **de minimiser cette fonction de perte**.
+
+Dans la **Classification binaire** on utilise la log loss (cross-entropy)  qui mesure combien la probabilité prédite pour la bonne classe est proche de 1.
+
+
+<p align="center">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Ensemble_Boosting.svg/250px-Ensemble_Boosting.svg.png" alt="Source de l'image" width="600"/>
+</p>
+
+
+### Boosting vs Bagging
+
+| Méthode               | Random Forest (bagging) | Gradient Boosting (boosting) |
+|-----------------------|------------------------|-----------------------------|
+| Construction          | arbres en parallèle    | arbres en séquence          |
+| Objectif              | réduire la variance    | réduire le biais            |
+| Arbres                | profonds               | petits                      |
+| Surapprentissage      | limité                 | plus élevé si mal réglé     |
+| Vitesse               | rapide                 | plus lent                   |
+
+
+### Pourquoi XGBoost ?
+
+XGBoost est une version optimisée et ultra-performante du gradient boosting classique.
+
+Ses forces :
+- Très rapide (parallélisation, optimisations C++).  
+- Très précis : souvent gagnant en compétition (Kaggle).  
+- Régularisation L1 & L2 intégrée pour éviter l’overfitting.  
+- Gestion native des valeurs manquantes.  
+- Possibilité d’utiliser **early stopping**.  
+- Très nombreux hyperparamètres pour ajuster la performance.
+
+### Hyperparamètres
+
+Voici les plus importants, expliqués de manière simple :
+
+- **n_estimators**
+  - Nombre d’arbres dans le modèle
+  - Plus il y a d’arbres → modèle plus puissant
+  - Trop d’arbres → risque d’overfitting
+
+- **learning_rate**
+  - Taux d’apprentissage (clé du boosting)
+  - Valeur faible (0.01 à 0.1) → apprentissage lent mais précis
+  - Valeur élevée → risque de surapprentissage
+
+- **max_depth**
+  - Profondeur maximale des arbres
+  - Plus profond = modèle plus complexe
+  - Trop profond = risque d’overfitting
+
+- **subsample**
+  - Fraction des échantillons utilisés pour chaque arbre (0.5 à 1)
+  - Aide à éviter le surapprentissage
+  - Introduit de la diversité entre les arbres
+
+- **colsample_bytree**
+  - Fraction des colonnes utilisées pour chaque arbre
+  - Rend les arbres plus variés
+  - Diminue le surapprentissage
+
+- **gamma**
+  - Gain minimal requis pour diviser un nœud
+  - Valeur élevée → arbres plus simples, plus réguliers
+
+- **reg_alpha (L1)**
+  - Régularisation L1
+  - Réduit les splits inutiles
+  - Aide à simplifier le modèle
+
+- **reg_lambda (L2)**
+  - Régularisation L2
+  - Stabilise le modèle et réduit le surapprentissage
+
+
+### Implémentation Complète de XGBoost en Python
+
+Voici un exemple extrêmement classique d’entraînement avec une **GridSearch** permettant d’optimiser les paramètres.
+
+```python
+from xgboost import XGBClassifier
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import classification_report
+import pandas as pd
+import matplotlib.pyplot as plt
+```
+
+### Modèle initial
+
+```python
+xgb = XGBClassifier(
+random_state=42,
+eval_metric='logloss' # Pour éviter les warnings inutiles
+)
+```
+
+### Grille de paramètres
+
+```python
+param_grid = {
+'n_estimators': [100, 300],
+'max_depth': [3, 6],
+'learning_rate': [0.01, 0.1],
+'subsample': [0.7, 1.0],
+'colsample_bytree': [0.7, 1.0],
+'gamma': [0, 1]
+}
+```
+
+### Grid Search
+
+```python
+grid_search_xgb = GridSearchCV(
+estimator=xgb,
+param_grid=param_grid,
+scoring='f1_macro',
+cv=5,
+n_jobs=-1
+)
+
+grid_search_xgb.fit(X_train, y_train)
+
+print("Meilleurs hyperparamètres :", grid_search_xgb.best_params_)
+```
+
+### Modèle final
+
+```python
+best_xgb = grid_search_xgb.best_estimator_
+```
+
+### Évaluation du Modèle
+
+```python
+y_pred_xgb = best_xgb.predict(X_test)
+print(classification_report(y_test, y_pred_xgb))
+```
+
+### Importance des Variables
+
+```python
+importances = pd.DataFrame({
+'Feature': X_train.columns,
+'Importance': best_xgb.feature_importances_
+}).sort_values(by='Importance', ascending=False)
+
+plt.figure(figsize=(10,6))
+plt.bar(importances['Feature'], importances['Importance'])
+plt.xticks(rotation=45)
+plt.title("Feature Importances — XGBoost")
+plt.show()
+```
+
+L’importance des variables permet de comprendre quelles colonnes influencent le plus la prédiction.
+
+
+### Avantages et Inconvénients
+
+#### Avantages
+- Performances exceptionnelles  
+- Grande flexibilité et nombreuses optimisations  
+- Régularisation intégrée  
+- Très bonne gestion des données manquantes  
+- Rarement dépassé sur les données tabulaires  
+
+#### Inconvénients
+- Beaucoup d’hyperparamètres (peut perdre un débutant)  
+- Plus lent qu’un Random Forest si mauvaise configuration  
+- Peut surapprendre si trop de profondeur / trop d’arbres  
+
+### Conseils pratiques
+
+- Toujours commencer avec **learning_rate = 0.1**  
+- Si le modèle surapprend :  
+  - diminuer **max_depth**  
+  - augmenter **gamma**  
+  - baisser **n_estimators**  
+- Utiliser **early stopping** pour éviter le surapprentissage  
+- Tester plusieurs valeurs de **subsample** et **colsample_bytree**  
+
+
+### Conclusion
+
+XGBoost est l’un des algorithmes les plus puissants pour les données tabulaires.  
+Grâce à ses améliorations internes, sa capacité de régularisation et sa rapidité, il offre des performances souvent supérieures au Random Forest.
+
+Ce cours donne toutes les bases nécessaires pour :
+- comprendre son fonctionnement  
+- ajuster ses hyperparamètres  
+- l’entraîner correctement en Python  
+- interpréter ses résultats  
+
+## Récapitulatif
+
+
+| Méthode                  | Principe rapide                                                                 | Avantages principaux                                                                                     | Inconvénients / Limites                                                                                   | Type de données idéal          | Temps / Complexité                | Interprétation                |
+|---------------------------|-------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|--------------------------------|----------------------------------|-------------------------------|
+| Decision Tree (Arbre)     | Diviser récursivement les données selon les variables pour créer des règles    | Facile à interpréter, visualisable, pas besoin de normalisation                                         | Tendance au surapprentissage, sensible aux variations des données                                        | Numérique ou catégoriel       | Faible / O(n log n)              | Très bonne                    |
+| Naive Bayes Gaussian      | Probabilités conditionnelles, suppose indépendance des variables              | Rapide, simple, fonctionne bien sur petits jeux de données, baseline                                    | Hypothèse d’indépendance souvent fausse, moins performant sur données complexes                           | Numérique (pour Gaussian)    | Très rapide / faible             | Moyenne                       |
+| KNN                       | Classe attribuée selon les k plus proches voisins                              | Simple, non paramétrique, pas besoin d’apprentissage réel                                                | Lent sur grands datasets, sensible au choix de k et à l’échelle des variables                              | Numérique                     | Élevé à prédiction / faible entraînement | Faible                       |
+| Régression Logistique     | Modèle linéaire sur logit (log-odds)                                           | Interprétable, probabilités directes, rapide                                                            | Ne capture pas les relations non linéaires sans transformation                                           | Numérique / catégoriel codé  | Faible                           | Bonne                         |
+| SVM                       | Sépare les classes en maximisant la marge, possibilité de kernel non linéaire  | Efficace pour petits/moyens datasets, flexible avec kernels                                             | Paramétrage délicat (C, gamma, kernel), peu interprétable, lent sur grands datasets                        | Numérique                     | Moyen à élevé                     | Moyenne à faible              |
+| Random Forest             | Ensemble d’arbres (bagging), vote majoritaire                                   | Réduction du surapprentissage, robuste, importance variables, pas besoin de normalisation               | Moins interprétable qu’un arbre simple, plus lent                                                         | Numérique ou catégoriel       | Moyen à élevé                     | Moyenne                       |
+| Gradient Boosting / XGBoost | Addition séquentielle d’arbres corrigeant erreurs précédentes                 | Très performant, gère données déséquilibrées, importance variables                                      | Sensible aux hyperparamètres, risque surapprentissage, plus lent                                          | Numérique ou catégoriel       | Élevé                             | Moyenne                       |

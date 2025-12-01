@@ -1,4 +1,4 @@
-# Chapitre 6 : Préparation et nettoyage des données pour le Machine Learning (avec exemples)
+# Chapitre 6 : Préparation et nettoyage des données
 
 La qualité des données est cruciale pour obtenir des modèles fiables et performants en Machine Learning.  
 Une mauvaise préparation peut entraîner des résultats biaisés, des erreurs d’apprentissage ou des interprétations fausses.  
