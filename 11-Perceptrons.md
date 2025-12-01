@@ -13,7 +13,27 @@
   - [Fonctionnement en classification](#fonctionnement-en-classification)
   - [Hyperparamètres importants (MLPClassifier)](#hyperparamètres-importants-mlpclassifier)
   - [Exemple de code Python (classification)](#exemple-de-code-python-classification)
-- [Régression](#régression)
+- [Les fonctions d'activation (ReLU, tanh, logistic/sigmoid, softmax)](#les-fonctions-dactivation-relu-tanh-logisticsigmoid-softmax)
+  - [La fonction ReLU](#la-fonction-relu)
+  - [La fonction tanh](#la-fonction-tanh)
+  - [La fonction sigmoïde (logistic)](#la-fonction-sigmoïde-logistic)
+  - [La fonction Softmax](#la-fonction-softmax)
+  - [Résumé global](#résumé-global)
+  - [Cas des fonctions d'activation en régression](#cas-des-fonctions-dactivation-en-régression)
+    - [Régression](#régression)
+    - [Activation linéaire (aucune activation)](#activation-linéaire-aucune-activation)
+  - [Exceptions possibles](#exceptions-possibles)
+    - [Cible strictement positive](#cible-strictement-positive)
+    - [Cible bornée entre 0 et 1](#cible-bornée-entre-0-et-1)
+    - [Cible bornée entre -1 et 1](#cible-bornée-entre--1-et-1)
+  - [Exemples appliqués au contexte DPE](#exemples-appliqués-au-contexte-dpe)
+    - [Exemple 1 : prédiction de la consommation énergétique](#exemple-1--prédiction-de-la-consommation-énergétique)
+    - [Exemple 2 : prédiction du besoin bioclimatique (Bbio)](#exemple-2--prédiction-du-besoin-bioclimatique-bbio)
+    - [Exemple 3 : prédiction des déperditions thermiques (\> 0)](#exemple-3--prédiction-des-déperditions-thermiques--0)
+    - [Exemple 4 : prédiction d’un score entre 0 et 1](#exemple-4--prédiction-dun-score-entre-0-et-1)
+  - [Tableau récapitulatif](#tableau-récapitulatif)
+  - [Règle simple](#règle-simple)
+- [Régression](#régression-1)
   - [Fonctionnement en régression](#fonctionnement-en-régression)
   - [Hyperparamètres](#hyperparamètres)
   - [Métriques d'évaluation](#métriques-dévaluation)
@@ -144,6 +164,243 @@ print("MLP Accuracy :", accuracy_score(y_test, pred_mlp))
 print(classification_report(y_test, pred_mlp))
 ```
 
+# Les fonctions d'activation (ReLU, tanh, logistic/sigmoid, softmax)  
+
+Les **fonctions d’activation** permettent d’introduire de la **non-linéarité** dans les modèles de Machine Learning, en particulier dans les réseaux de neurones.  
+Sans elles, un réseau serait simplement une **régression linéaire**, incapable de capturer des relations complexes.
+
+Dans le contexte du **DPE**, les relations entre variables (isolation, surface, ventilation, année de construction…) ne sont pas linéaires.  
+Les fonctions d’activation permettent de modéliser ces comportements.
+
+Pourquoi avons-nous besoin de non-linéarité ?
+
+Dans les données DPE :
+
+- la **consommation énergétique** n’augmente pas de façon linéaire avec la surface ;  
+- l’**année de construction** introduit des ruptures (changements de normes) ;  
+- la **ventilation** peut avoir un effet positif OU négatif ;  
+- la **performance** dépend d’interactions entre plusieurs facteurs.
+
+➡️ **Sans non-linéarité, ces effets ne peuvent pas être capturés.**
+
+Les fonctions d’activation permettent justement d’introduire cette flexibilité.
+
+
+## La fonction ReLU
+
+Définition :
+
+\[
+ReLU(x) = \max(0, x)
+\]
+
+Exemple :
+
+Imagine une mesure appelée **"impact de l’isolation sur la consommation"**.
+
+- Si l’isolation est mauvaise → impact POSITIF (hausse de consommation)  
+- Si elle est excellente → l’impact ne peut pas devenir négatif au point “d’économiser plus que 0”  
+
+**La consommation ne peut pas être négative.**  
+ReLU coupe donc tous les effets négatifs à zéro.
+
+Ce que ReLU apporte :
+
+- simplicité  
+- efficacité  
+- modèle “linéaire par morceaux”  
+- activation la plus utilisée dans les réseaux modernes
+
+
+## La fonction tanh
+
+Définition :
+\[
+tanh(x) \in [-1, 1]
+\]
+
+Exemple:
+Supposons une variable interne du modèle représentant **"impact de la ventilation"** :
+
+- trop de ventilation → pertes → consommation augmente → valeur positive  
+- pas assez de ventilation → stagnation de l’humidité → consommation diminue (chauffage plus efficace) → valeur négative  
+- ventilation correcte → effet neutre → proche de 0
+
+**tanh permet de modéliser des effets positifs ET négatifs.**
+
+Ce que tanh apporte :
+
+- utile dans les couches cachées  
+- centrée autour de 0  
+- utile quand des effets opposés doivent être représentés
+
+
+## La fonction sigmoïde (logistic)
+
+Définition  :
+\[
+sigmoid(x)=\frac{1}{1+e^{-x}}
+\]
+
+Sortie entre **0 et 1**, interprétable comme une **probabilité**.
+
+Exemple :
+
+Objectif : prédire si un logement est une **passoire énergétique** (Oui / Non).
+
+La sigmoïde convertit un score interne en probabilité :
+
+- x = +6 → 0,997 → "presque sûr que c’est une passoire"  
+- x = 0 → 0,5 → "50/50, je ne sais pas"  
+- x = –6 → 0,002 → "très peu probable"
+
+Parfait pour les **problèmes binaires**.
+
+Ce qu’elle apporte :
+
+- transforme n’importe quel score en probabilité  
+- utilisée dans la sortie d’un réseau pour classification binaire
+
+
+## La fonction Softmax
+
+Définition  :
+Transforme une liste de scores en **probabilités qui totalisent 100 %**.
+
+Exemple :
+
+Objectif : prédire l'**étiquette DPE** (A → G).
+
+Scores bruts du modèle :
+
+| Classe | Score |
+|--------|--------|
+| A      | 1.2    |
+| B      | 0.8    |
+| C      | 3.3    |
+| D      | 0.4    |
+
+La softmax convertit ces scores en probabilités :
+
+- A → 15 %  
+- B → 9 %  
+- C → **72 %**  
+- D → 4 %
+
+Le modèle choisit **C**, la classe avec la probabilité la plus élevée.
+
+Ce qu’elle apporte :
+
+- indispensable pour la classification **multiclasse**  
+- garantit une distribution propre (somme = 100 %)
+
+
+## Résumé global
+
+| Activation | Domaines d’utilisation | Avantage clé | Exemple DPE |
+|-----------|-------------------------|--------------|--------------|
+| **ReLU** | couches cachées | simple, efficace | impact isolation |
+| **tanh** | couches cachées | valeurs de -1 à 1 | ventilation, orientation |
+| **sigmoïde** | sortie binaire | probabilité | passoire (Oui/Non) |
+| **Softmax** | sortie multiclasse | distribution 100 % | étiquette A → G |
+
+
+Métaphore pour retenir :
+
+- **ReLU** → il ignore tout ce qui réduit trop la consommation (ne peut pas être négatif)  
+- **tanh** → il gère les effets *positifs ET négatifs*  
+- **sigmoïde** → il répond *oui ou non* à “est-ce une passoire ?"  
+- **softmax** → il choisit l’étiquette finale *A/B/C/D/E/F/G*
+
+## Cas des fonctions d'activation en régression
+
+La grande différence concerne **l’activation en sortie** du modèle.
+
+### Régression
+La cible est une **valeur continue**, souvent sans borne, comme :
+
+- consommation énergétique (kWh/m²/an)  
+- déperditions thermiques  
+- besoin bioclimatique  
+- coûts énergétiques  
+
+Dans ce cas, on utilise :
+
+### Activation linéaire (aucune activation)
+\[
+f(x) = x
+\]
+
+Cela permet au modèle de prédire n’importe quelle valeur réelle.
+
+
+## Exceptions possibles
+
+### Cible strictement positive
+Certaines variables ne peuvent pas être négatives, comme :
+
+- consommation  
+- déperditions  
+- pertes thermiques  
+- émissions CO₂  
+
+Dans ce cas, on peut utiliser :
+
+- ReLU  
+- Softplus  
+
+Ces fonctions empêchent la sortie d’être négative.
+
+### Cible bornée entre 0 et 1
+Exemples :
+- scores normalisés  
+- probabilités  
+- indices de performance standardisés  
+
+Activation recommandée : **sigmoïde**.
+
+### Cible bornée entre -1 et 1
+Exemple :
+- indice standardisé autour de 0  
+
+Activation recommandée : **tanh**.
+
+
+## Exemples appliqués au contexte DPE
+
+### Exemple 1 : prédiction de la consommation énergétique
+- couche cachée 1 : ReLU  
+- couche cachée 2 : ReLU  
+- sortie : activation **linéaire**
+
+La consommation peut être 70, 150, 350, 600 kWh/m²/an : il faut une sortie non bornée.
+
+### Exemple 2 : prédiction du besoin bioclimatique (Bbio)
+Valeur potentiellement élevée et non bornée :  
+Sortie linéaire.
+
+### Exemple 3 : prédiction des déperditions thermiques (> 0)
+Sortie ReLU ou Softplus possible.
+
+### Exemple 4 : prédiction d’un score entre 0 et 1
+Sortie sigmoïde.
+
+
+## Tableau récapitulatif
+
+| Contexte cible | Activation cachée | Activation sortie | Justification |
+|----------------|-------------------|------------------|---------------|
+| Régression classique | ReLU / tanh | Linéaire | Valeur réelle continue |
+| Cible positive | ReLU / tanh | ReLU ou Softplus | Sortie toujours > 0 |
+| Cible entre 0 et 1 | ReLU / tanh | Sigmoïde | Sortie bornée |
+| Cible entre -1 et 1 | ReLU / tanh | tanh | Sortie bornée symétrique |
+
+
+## Règle simple
+
+- Les **couches cachées** utilisent généralement **ReLU** (ou d’autres non-linéarités).  
+- La **couche de sortie** utilise une activation **linéaire** pour la régression.  
+- On applique une activation spécifique en sortie uniquement si la cible a des limites naturelles.
 
 # Régression
 
