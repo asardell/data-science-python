@@ -261,6 +261,11 @@ Pour comparer et interpréter les modèles de classification, plusieurs **métri
   - **Leave-One-Out (LOO)** : chaque observation est utilisée une fois comme test, le reste comme train. Utile pour petits jeux de données.  
   - **Stratified k-fold** : même principe que k-fold mais en conservant la proportion des classes dans chaque fold, très utile pour les problèmes de classification déséquilibrée.
 
+<p align="center">
+  <img src="https://scikit-learn.org/stable/_images/grid_search_cross_validation.png" alt="Source de l'image" width="600"/>
+</p>
+
+
 - **Avantages** :  
   - Fournit une estimation plus fiable de la performance réelle du modèle.  
   - Permet de détecter le sur-apprentissage si le score moyen sur les folds est proche du score sur l’entraînement mais loin de celui sur le test.  
@@ -321,6 +326,11 @@ Ils segmentent l’espace des variables explicatives en fonction de règles simp
 **Inconvénients** :
 - Sensibles au sur-apprentissage si l’arbre est trop profond.
 - Peu robustes aux petites variations des données.
+
+<p align="center">
+  <img src="https://scikit-learn.org/stable/_images/sphx_glr_plot_iris_dtc_002.png" alt="Source de l'image" width="600"/>
+</p>
+
 
 ### Préparation de l’échantillon
 
@@ -590,6 +600,11 @@ KNN (K-Nearest Neighbors) est une méthode d'apprentissage supervisé utilisée 
 - Pour classer un nouvel individu, KNN regarde les **K plus proches voisins** dans l’espace des variables explicatives et attribue la classe majoritaire parmi ces voisins.
 - La proximité est généralement mesurée avec la distance euclidienne, mais d’autres distances peuvent être utilisées.
 
+<p align="center">
+  <img src="https://miro.medium.com/v2/resize:fit:650/1*OyYyr9qY-w8RkaRh2TKo0w.png" alt="Source de l'image" width="600"/>
+</p>
+
+
 **Avantages :**
 - Simple à comprendre et à implémenter.
 - Non paramétrique : aucune hypothèse sur la distribution des données.
@@ -680,6 +695,10 @@ print("F1-score (classe 0) :", f1_score(y_test, y_pred_knn, pos_label=0))
 
 
 Même si la régression logistique est utilisée pour **des problèmes de classification** (par exemple, prédire si un logement est éligible à la prime rénov ou non), elle repose sur **un modèle linéaire sous-jacent** :
+
+<p align="center">
+  <img src="https://94fa3c88.delivery.rocketcdn.me/wp-content/uploads/2020/11/illu_regression_blog-16.png" alt="Source de l'image" width="600"/>
+</p>
 
 1. **Transformation linéaire des variables explicatives**  
    La régression logistique calcule une **combinaison linéaire** des variables explicatives, exactement comme dans une régression linéaire classique :
@@ -819,6 +838,11 @@ Formule générale du théorème de Bayes :
 
 P(classe | données) = P(données | classe) × P(classe) / P(données)
 
+<p align="center">
+  <img src="https://databasecamp.de/wp-content/uploads/naive-bayes-overview-1024x709.png" alt="Source de l'image" width="600"/>
+</p>
+
+
 Un classifieur bayésien choisit la classe **maximisant la probabilité a posteriori**.
 
 Naive Bayes n’est généralement pas le modèle principal dans des pipelines industriels avancés.  
@@ -926,6 +950,11 @@ print("F1-score (classe 0) :", f1_score(y_test, y_pred, average='binary', pos_la
 
 Le **SVM (Support Vector Machine)** est une méthode de classification supervisée qui cherche à **séparer les classes en maximisant la marge** entre elles. Elle peut être utilisée pour des problèmes linéaires ou non linéaires via des kernels.
 
+
+<p align="center">
+  <img src="https://scikit-learn.org/stable/_images/sphx_glr_plot_iris_svc_001.png" alt="Source de l'image" width="600"/>
+</p>
+
 ### Principes
 - Trouver l'hyperplan qui sépare les classes avec la **marge maximale**.
 - Les points les plus proches de l'hyperplan sont appelés **support vectors**.
@@ -1005,7 +1034,12 @@ Random Forest est un algorithme de **machine learning supervisé**, fondé sur u
 Il sert à la **classification** comme à la **régression**, mais ici nous nous concentrons sur la classification.
 
 Le principe est simple :
-> On construit plusieurs arbres différents, puis on combine leurs prédictions.
+On construit plusieurs arbres différents, puis on combine leurs prédictions.
+
+<p align="center">
+  <img src="https://substackcdn.com/image/fetch/$s_!bLkP!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F972e598f-8afe-4e6a-91d6-4799fba0a55f_2224x1053.png" alt="Source de l'image" width="600"/>
+</p>
+
 
 ### Principe du Bagging (Bootstrap Aggregating)
 
