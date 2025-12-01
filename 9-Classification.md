@@ -106,6 +106,7 @@
     - [Conseils pratiques](#conseils-pratiques)
     - [Conclusion](#conclusion-1)
   - [Récapitulatif](#récapitulatif)
+- [Exercice : Prédiction des étiquettes DPE (classification multi-classes)](#exercice--prédiction-des-étiquettes-dpe-classification-multi-classes)
 
 ## Introduction à la classification
 
@@ -1377,3 +1378,8 @@ Ce cours donne toutes les bases nécessaires pour :
 | SVM                       | Sépare les classes en maximisant la marge, possibilité de kernel non linéaire  | Efficace pour petits/moyens datasets, flexible avec kernels                                             | Paramétrage délicat (C, gamma, kernel), peu interprétable, lent sur grands datasets                        | Numérique                     | Moyen à élevé                     | Moyenne à faible              |
 | Random Forest             | Ensemble d’arbres (bagging), vote majoritaire                                   | Réduction du surapprentissage, robuste, importance variables, pas besoin de normalisation               | Moins interprétable qu’un arbre simple, plus lent                                                         | Numérique ou catégoriel       | Moyen à élevé                     | Moyenne                       |
 | Gradient Boosting / XGBoost | Addition séquentielle d’arbres corrigeant erreurs précédentes                 | Très performant, gère données déséquilibrées, importance variables                                      | Sensible aux hyperparamètres, risque surapprentissage, plus lent                                          | Numérique ou catégoriel       | Élevé                             | Moyenne                       |
+
+
+# Exercice : Prédiction des étiquettes DPE (classification multi-classes)
+
+Dans cet exercice, vous allez appliquer toutes les méthodes de **classification** vues précédemment pour prédire les **étiquettes DPE** (A, B, C, D, E, F, G) des logements. L’objectif est de comparer les performances des modèles et d’identifier les variables les plus importantes tout en évitant le **data leakage**.
