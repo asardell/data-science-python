@@ -27,10 +27,6 @@
     - [Cible bornée entre 0 et 1](#cible-bornée-entre-0-et-1)
     - [Cible bornée entre -1 et 1](#cible-bornée-entre--1-et-1)
   - [Exemples appliqués au contexte DPE](#exemples-appliqués-au-contexte-dpe)
-    - [Exemple 1 : prédiction de la consommation énergétique](#exemple-1--prédiction-de-la-consommation-énergétique)
-    - [Exemple 2 : prédiction du besoin bioclimatique (Bbio)](#exemple-2--prédiction-du-besoin-bioclimatique-bbio)
-    - [Exemple 3 : prédiction des déperditions thermiques (\> 0)](#exemple-3--prédiction-des-déperditions-thermiques--0)
-    - [Exemple 4 : prédiction d’un score entre 0 et 1](#exemple-4--prédiction-dun-score-entre-0-et-1)
   - [Tableau récapitulatif](#tableau-récapitulatif)
   - [Règle simple](#règle-simple)
 - [Régression](#régression-1)
@@ -106,7 +102,7 @@ C’est ce qu’on appelle un **approximateur universel**.
 
 
 <p align="center">
-  <img src="https://www.researchgate.net/publication/286404296/figure/fig1/AS:334969059725313@1456874255502/Le-modele-de-perceptrons-multicouches-MLP.png" alt="Source de l'image" width="600"/>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Perceptron_4layers.png" alt="Source de l'image" width="600"/>
 </p>
 
 
@@ -321,7 +317,6 @@ La cible est une **valeur continue**, souvent sans borne, comme :
 
 - consommation énergétique (kWh/m²/an)  
 - déperditions thermiques  
-- besoin bioclimatique  
 - coûts énergétiques  
 
 Dans ce cas, on utilise :
@@ -368,22 +363,16 @@ Activation recommandée : **tanh**.
 
 ## Exemples appliqués au contexte DPE
 
-### Exemple 1 : prédiction de la consommation énergétique
+Exemple 1 : prédiction de la consommation énergétique
 - couche cachée 1 : ReLU  
 - couche cachée 2 : ReLU  
 - sortie : activation **linéaire**
 
 La consommation peut être 70, 150, 350, 600 kWh/m²/an : il faut une sortie non bornée.
 
-### Exemple 2 : prédiction du besoin bioclimatique (Bbio)
-Valeur potentiellement élevée et non bornée :  
-Sortie linéaire.
+Exemple 2 : prédiction des déperditions thermiques (> 0) -->  Sortie ReLU ou Softplus possible.
 
-### Exemple 3 : prédiction des déperditions thermiques (> 0)
-Sortie ReLU ou Softplus possible.
-
-### Exemple 4 : prédiction d’un score entre 0 et 1
-Sortie sigmoïde.
+Exemple 3 : prédiction d’un score entre 0 et 1 --< Sortie sigmoïde.
 
 
 ## Tableau récapitulatif
