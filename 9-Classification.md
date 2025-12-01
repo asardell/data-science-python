@@ -1144,7 +1144,7 @@ Dans la **Classification binaire** on utilise la log loss (cross-entropy)  qui m
 
 
 <p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Ensemble_Boosting.svg/250px-Ensemble_Boosting.svg.png" alt="Source de l'image" width="600"/>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Ensemble_Boosting.svg/1280px-Ensemble_Boosting.svg.png" alt="Source de l'image" width="600"/>
 </p>
 
 
