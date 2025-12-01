@@ -107,12 +107,11 @@
 
 La **régression** est une sous-catégorie de l’apprentissage supervisé. Elle consiste à prédire une **variable cible continue** à partir de variables explicatives. L'objectif est d’estimer une valeur numérique pour chaque observation.
 
-**Exemple
+**Exemple**
 
 - Variables explicatives : surface habitable, étage, type de logement, année de construction, etc.
 - Variable cible : `besoin_chauffage` (kWh/an), `conso_chauffage_ef` (kWh/an), ou consommation énergétique globale.
 
----
 
 ## Méthodologie générale
 
@@ -137,7 +136,6 @@ La **régression** est une sous-catégorie de l’apprentissage supervisé. Elle
    - Encodage des variables catégorielles  
    - Normalisation / standardisation pour certaines méthodes (SVM, Ridge, Lasso)  
 
----
 
 ## Méthodes de régression
 
@@ -186,7 +184,6 @@ La **régression** est une sous-catégorie de l’apprentissage supervisé. Elle
 - Avantages : performant pour relations complexes non linéaires via kernels.  
 - Inconvénients : paramétrage délicat (C, gamma, epsilon), sensible à l’échelle des variables.
 
----
 
 ## Evaluation des modèles
 
@@ -208,7 +205,6 @@ La **régression** est une sous-catégorie de l’apprentissage supervisé. Elle
 - `R² = 1 - (SS_res / SS_tot)`  
 - R² proche de 1 → modèle explique bien la variance.
 
----
 
 ### Exemple illustratif
 
@@ -225,7 +221,6 @@ La **régression** est une sous-catégorie de l’apprentissage supervisé. Elle
 - MAE : (500 + 200 + 200)/3 ≈ 300 kWh  
 - R² : 0,95 (le modèle explique 95% de la variance)
 
----
 
 ## Compromis sous-apprentissage / sur-apprentissage
 
@@ -236,7 +231,6 @@ La **régression** est une sous-catégorie de l’apprentissage supervisé. Elle
 
 **Solutions** : régularisation (Ridge, Lasso, Elastic Net), validation croisée, limitation de profondeur pour les arbres.
 
----
 
 ## Validation croisée
 
@@ -244,7 +238,6 @@ La **régression** est une sous-catégorie de l’apprentissage supervisé. Elle
 - Évaluation des erreurs (MSE, RMSE, MAE, R²) sur chaque fold.  
 - Permet de choisir les hyperparamètres optimaux et détecter sur-apprentissage.
 
----
 
 ## Points clés à retenir
 
@@ -265,12 +258,11 @@ La **régression** est une sous-catégorie de l’apprentissage supervisé. Elle
 La **régression linéaire** est une méthode d’apprentissage supervisé utilisée pour prédire une **variable continue** à partir de variables explicatives.  
 Elle permet de comprendre comment les variables explicatives influencent la variable cible et d’effectuer des prédictions.
 
-**Exemple : projet DPE**
+**Exemple**
 
 - Variables explicatives : `"annee_construction"`, `"type_batiment"`, `"deperditions_murs"`, `"hauteur_sous_plafond"`, `"surface_habitable"`  
 - Variable cible : `"besoin_chauffage"` (kWh)
 
----
 
 ### Configuration et méthodologie
 
@@ -286,7 +278,6 @@ Elle permet de comprendre comment les variables explicatives influencent la vari
    - Encodage des variables catégorielles (`type_batiment`)  
    - Normalisation ou standardisation si nécessaire (non obligatoire pour une régression linéaire simple)
 
----
 
 ### Modèle : régression linéaire
 
@@ -305,7 +296,6 @@ reg_lin = LinearRegression()
 reg_lin.fit(X_train, y_train)
 ```
 
----
 
 #### Coefficients et intercept
 
@@ -322,7 +312,6 @@ print("Intercept :", intercept)
 - Chaque coefficient indique l’effet d’une **variable explicative** sur la variable cible, toutes choses égales par ailleurs.  
 - L’intercept représente la valeur prédite lorsque toutes les variables explicatives sont égales à zéro.
 
----
 
 #### Prédictions sur le jeu de test
 
@@ -330,7 +319,6 @@ print("Intercept :", intercept)
 y_pred = reg_lin.predict(X_test)
 ```
 
----
 
 #### Évaluation du modèle
 
@@ -354,7 +342,6 @@ print("R² :", r2)
 - **MAE (Mean Absolute Error)** : moyenne des erreurs absolues  
 - **R²** : proportion de variance expliquée par le modèle (1 = parfait, 0 = modèle nul)
 
----
 
 #### Visualisation des valeurs observées vs prédites
 
@@ -372,7 +359,6 @@ plt.show()
 
 - Les points proches de la diagonale rouge indiquent une bonne prédiction.  
 
----
 
 #### Notes sur la régression multiple
 
@@ -388,13 +374,12 @@ plt.show()
 La **régression polynomiale** est une extension de la régression linéaire qui permet de modéliser des relations **non linéaires** entre les variables explicatives et la variable cible.  
 Elle consiste à transformer les variables explicatives en **puissances supérieures** (carré, cube, etc.) pour capturer des courbes et des interactions.
 
-**Exemple : projet DPE**
+**Exemple  :**
 
 - Variables explicatives : `"annee_construction"`, `"deperditions_murs"`, `"hauteur_sous_plafond"`, `"surface_habitable"`  
 - Variable cible : `"besoin_chauffage"` (kWh)  
 - Objectif : capturer des effets non linéaires (ex. surface² ou interactions entre variables)
 
----
 
 ### Transformation polynomiale des variables
 
@@ -417,7 +402,6 @@ X_test_poly = poly.transform(X_test)
 - Chaque variable est transformée pour inclure ses **carrés et interactions** avec les autres variables.  
 - `include_bias=False` supprime le terme constant, qui sera géré par l'intercept du modèle.
 
----
 
 ### Création et entraînement du modèle
 
@@ -426,7 +410,6 @@ reg_poly = LinearRegression()
 reg_poly.fit(X_train_poly, y_train)
 ```
 
----
 
 ### Coefficients et intercept
 
@@ -440,7 +423,6 @@ print("Intercept :", intercept)
 
 - Les coefficients indiquent l’effet **non linéaire ou interaction** des variables transformées sur la cible.
 
----
 
 ### Prédictions sur le jeu de test
 
@@ -448,7 +430,6 @@ print("Intercept :", intercept)
 y_pred = reg_poly.predict(X_test_poly)
 ```
 
----
 
 ### Évaluation du modèle
 
@@ -470,7 +451,6 @@ print("R² :", r2)
 - **MSE, RMSE, MAE** et **R²** ont le même sens que pour la régression linéaire.  
 - Un R² plus élevé qu’avec la régression linéaire simple indique que la polynomiale capture mieux les relations non linéaires.
 
----
 
 ### Visualisation des valeurs observées vs prédites
 
@@ -488,7 +468,6 @@ plt.show()
 
 - Les points proches de la diagonale rouge indiquent une bonne prédiction.  
 
----
 
 ### Notes importantes
 
@@ -504,13 +483,12 @@ plt.show()
 La **régression Ridge** est une variante de la régression linéaire qui inclut une **pénalisation L2** pour réduire le risque de **sur-apprentissage** lorsque les variables explicatives sont nombreuses ou fortement corrélées.  
 Elle minimise la somme des carrés des résidus et une pénalité proportionnelle au carré des coefficients.
 
-**Exemple : projet DPE**
+**Exemple  :**
 
 - Variables explicatives : `"annee_construction"`, `"deperditions_murs"`, `"hauteur_sous_plafond"`, `"surface_habitable"`  
 - Variable cible : `"besoin_chauffage"` (kWh)  
 - Objectif : limiter l’influence des coefficients extrêmes et améliorer la généralisation.
 
----
 
 ### Création du modèle Ridge
 
@@ -526,7 +504,6 @@ X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.3, random_
 ridge = Ridge()
 ```
 
----
 
 ### Grid Search pour optimiser l’hyperparamètre alpha
 
@@ -543,7 +520,6 @@ best_ridge = grid_ridge.best_estimator_
 print("Meilleur alpha :", best_ridge.alpha)
 ```
 
----
 
 ### Prédictions sur le jeu de test
 
@@ -551,7 +527,6 @@ print("Meilleur alpha :", best_ridge.alpha)
 y_pred = best_ridge.predict(X_test)
 ```
 
----
 
 ### Évaluation du modèle
 
@@ -570,7 +545,6 @@ print("MAE :", mae)
 print("R² :", r2)
 ```
 
----
 
 ### Coefficients et intercept
 
@@ -584,7 +558,6 @@ print("Intercept :", intercept)
 
 - Les coefficients sont **réduits** par la régularisation L2 par rapport à une régression linéaire simple.  
 
----
 
 ### Visualisation des valeurs observées vs prédites
 
@@ -602,7 +575,6 @@ plt.show()
 
 - Les points proches de la diagonale indiquent une bonne prédiction.
 
----
 
 ### Notes importantes
 
@@ -618,13 +590,12 @@ plt.show()
 La **régression Lasso** est une variante de la régression linéaire qui inclut une **pénalisation L1**.  
 Elle permet de **réduire certains coefficients à zéro**, ce qui fait également office de **sélection de variables** et limite le sur-apprentissage.
 
-**Exemple : projet DPE**
+**Exemple  :**
 
 - Variables explicatives : `"annee_construction"`, `"deperditions_murs"`, `"hauteur_sous_plafond"`, `"surface_habitable"`  
 - Variable cible : `"besoin_chauffage"` (kWh)  
 - Objectif : identifier les variables les plus pertinentes tout en améliorant la généralisation.
 
----
 
 ### Création du modèle Lasso
 
@@ -640,7 +611,6 @@ X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.3, random_
 lasso = Lasso()
 ```
 
----
 
 ### Grid Search pour optimiser l’hyperparamètre alpha
 
@@ -657,7 +627,6 @@ best_lasso = grid_lasso.best_estimator_
 print("Meilleur alpha :", best_lasso.alpha)
 ```
 
----
 
 ### Prédictions sur le jeu de test
 
@@ -665,7 +634,6 @@ print("Meilleur alpha :", best_lasso.alpha)
 y_pred = best_lasso.predict(X_test)
 ```
 
----
 
 ### Évaluation du modèle
 
@@ -684,7 +652,6 @@ print("MAE :", mae)
 print("R² :", r2)
 ```
 
----
 
 ### Coefficients et intercept
 
@@ -698,7 +665,6 @@ print("Intercept :", intercept)
 
 - Les coefficients **réduits à zéro** indiquent les variables moins pertinentes pour prédire le besoin de chauffage.  
 
----
 
 ### Visualisation des valeurs observées vs prédites
 
@@ -716,7 +682,6 @@ plt.show()
 
 - Les points proches de la diagonale indiquent une bonne prédiction.
 
----
 
 ### Notes importantes
 
@@ -735,13 +700,12 @@ Elle permet à la fois :
 - de **sélectionner des variables** (L1)  
 - de **réduire le sur-apprentissage** (L2)  
 
-**Exemple : projet DPE**
+**Exemple  :**
 
 - Variables explicatives : `"annee_construction"`, `"deperditions_murs"`, `"hauteur_sous_plafond"`, `"surface_habitable"`  
 - Variable cible : `"besoin_chauffage"` (kWh)  
 - Objectif : bénéficier à la fois de la régularisation Lasso et Ridge.
 
----
 
 ### Création du modèle ElasticNet
 
@@ -757,7 +721,6 @@ X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.3, random_
 elastic = ElasticNet()
 ```
 
----
 
 ### Grid Search pour optimiser les hyperparamètres
 
@@ -776,7 +739,6 @@ print("Meilleur alpha :", best_elastic.alpha)
 print("Meilleur l1_ratio :", best_elastic.l1_ratio)
 ```
 
----
 
 ### Prédictions sur le jeu de test
 
@@ -784,7 +746,6 @@ print("Meilleur l1_ratio :", best_elastic.l1_ratio)
 y_pred = best_elastic.predict(X_test)
 ```
 
----
 
 ### Évaluation du modèle
 
@@ -803,7 +764,6 @@ print("MAE :", mae)
 print("R² :", r2)
 ```
 
----
 
 ### Coefficients et intercept
 
@@ -818,7 +778,6 @@ print("Intercept :", intercept)
 - Les coefficients proches de zéro indiquent des variables moins pertinentes.  
 - La combinaison L1/L2 permet de conserver certaines variables tout en réduisant l’effet du bruit.
 
----
 
 ### Visualisation des valeurs observées vs prédites
 
@@ -836,7 +795,6 @@ plt.show()
 
 - Les points proches de la diagonale montrent une bonne prédiction.  
 
----
 
 ### Notes importantes
 
@@ -857,13 +815,12 @@ Ils fonctionnent en divisant récursivement les données selon les variables exp
 - Avantages : facile à interpréter, visualisable, capture des relations non linéaires et interactions complexes  
 - Inconvénients : tendance au sur-apprentissage, sensible aux variations des données, instable (petites modifications du jeu de données peuvent fortement modifier l’arbre)
 
-**Exemple : projet DPE**
+**Exemple  :**
 
 - Variables explicatives : `"annee_construction"`, `"type_batiment"`, `"deperditions_murs"`, `"hauteur_sous_plafond"`, `"surface_habitable"`  
 - Variable cible : `"besoin_chauffage"` (kWh)  
 - Objectif : prédire la consommation énergétique des logements
 
----
 
 ### Création et entraînement du modèle
 
@@ -885,7 +842,6 @@ arbre_reg.fit(X_train, y_train)
 - **min_samples_split** : nombre minimal d’observations pour diviser un nœud  
 - **min_samples_leaf** : nombre minimal d’observations dans une feuille  
 
----
 
 ### Prédictions sur le jeu de test
 
@@ -893,7 +849,6 @@ arbre_reg.fit(X_train, y_train)
 y_pred = arbre_reg.predict(X_test)
 ```
 
----
 
 ### Évaluation du modèle
 
@@ -917,7 +872,6 @@ print("R² :", r2)
 - **MAE** : moyenne des erreurs absolues, robuste aux outliers  
 - **R²** : proportion de variance expliquée par le modèle
 
----
 
 ### Visualisation de l'arbre
 
@@ -933,7 +887,6 @@ plt.show()
 - Chaque nœud indique la variable de division, le seuil et la valeur prédite pour cette feuille  
 - Couleur : valeur de la prédiction dans le nœud
 
----
 
 ### Interprétation
 
@@ -941,7 +894,6 @@ plt.show()
 - Les feuilles contiennent la **valeur moyenne de la consommation** pour les logements correspondant à ces critères  
 - La profondeur et le nombre de feuilles contrôlent **la complexité et la capacité à généraliser**  
 
----
 
 ### Points clés
 
@@ -969,12 +921,11 @@ Le **Random Forest Regressor** est une extension des arbres de régression qui u
 - Moins interprétable qu’un arbre simple  
 - Plus coûteux en calculs  
 
-**Exemple : projet DPE**  
+**Exemple  :**  
 
 - Variables explicatives : `"annee_construction"`, `"type_batiment"`, `"deperditions_murs"`, `"hauteur_sous_plafond"`, `"surface_habitable"`  
 - Variable cible : `"besoin_chauffage"` (kWh)  
 
----
 
 ### Création et entraînement du modèle
 
@@ -997,7 +948,6 @@ rf_reg.fit(X_train, y_train)
 - **min_samples_split** : nombre minimum d’observations pour diviser un nœud  
 - **min_samples_leaf** : nombre minimum d’observations dans une feuille  
 
----
 
 ### Prédictions sur le jeu de test
 
@@ -1005,7 +955,6 @@ rf_reg.fit(X_train, y_train)
 y_pred = rf_reg.predict(X_test)
 ```
 
----
 
 ### Évaluation du modèle
 
@@ -1029,7 +978,6 @@ print("R² :", r2)
 - **MAE** : moyenne des erreurs absolues  
 - **R²** : proportion de variance expliquée  
 
----
 
 ### Importance des variables
 
@@ -1047,7 +995,6 @@ feature_importances
 - Montre l’influence relative de chaque variable sur les prédictions  
 - Plus la valeur est élevée, plus la variable contribue à réduire l’erreur  
 
----
 
 ### Interprétation
 
@@ -1055,7 +1002,6 @@ feature_importances
 - Chaque arbre “voit” seulement une partie des variables à chaque split, ce qui réduit la corrélation entre arbres et améliore la généralisation  
 - Les variables les plus importantes peuvent être utilisées pour **feature selection** ou interprétation du modèle  
 
----
 
 ### Points clés
 
@@ -1079,11 +1025,10 @@ L’idée principale est de trouver une **fonction qui s’ajuste aux données**
 **Avantages** : efficace pour petites et moyennes bases, capture les non-linéarités, robuste aux outliers dans la zone de tolérance  
 **Inconvénients** : paramétrage délicat (C, epsilon, kernel, gamma), difficilement interprétable  
 
-**Exemple : projet DPE**  
+**Exemple  :**  
 - Variables explicatives : `"annee_construction"`, `"type_batiment"`, `"deperditions_murs"`, `"hauteur_sous_plafond"`, `"surface_habitable"`  
 - Variable cible : `"besoin_chauffage"`  
 
----
 
 ### Configuration et Grid Search
 
@@ -1123,7 +1068,6 @@ grid_search.fit(X_train, y_train)
 - **gamma** : influence d’un point de donnée sur la fonction de décision (pour RBF)  
 - **scoring** : négatif MSE car GridSearch maximise la métrique  
 
----
 
 ### Meilleur modèle et hyperparamètres
 
@@ -1133,7 +1077,6 @@ print("Meilleur modèle :", best_svr)
 print("Meilleurs paramètres :", grid_search.best_params_)
 ```
 
----
 
 ### Prédictions et évaluation
 
@@ -1154,7 +1097,6 @@ print("MAE :", mae)
 print("R² :", r2)
 ```
 
----
 
 ### Interprétation
 
@@ -1163,7 +1105,6 @@ print("R² :", r2)
 - Le paramètre **epsilon** définit la marge de tolérance, utile pour ignorer le bruit.  
 - Les **kernels** permettent de capturer des relations non linéaires entre les variables explicatives et la cible.  
 
----
 
 ### Points clés
 
@@ -1187,11 +1128,10 @@ L’idée principale est de construire une **série d’arbres faibles (weak lea
 **Avantages** : très performant, gère les relations non linéaires et interactions complexes, robuste aux outliers  
 **Inconvénients** : paramétrage complexe (nombre d’arbres, profondeur, learning rate), moins interprétable qu’un arbre unique  
 
-**Exemple : projet DPE**  
+**Exemple  :**  
 - Variables explicatives : `"annee_construction"`, `"type_batiment"`, `"deperditions_murs"`, `"hauteur_sous_plafond"`, `"surface_habitable"`  
 - Variable cible : `"besoin_chauffage"`  
 
----
 
 ### Configuration et Grid Search
 
@@ -1231,7 +1171,6 @@ grid_search.fit(X_train, y_train)
 - **colsample_bytree** : proportion de variables utilisées pour chaque arbre  
 - **scoring** : négatif MSE car GridSearch maximise la métrique  
 
----
 
 ### Meilleur modèle et hyperparamètres
 
@@ -1241,7 +1180,6 @@ print("Meilleur modèle :", best_xgb)
 print("Meilleurs paramètres :", grid_search.best_params_)
 ```
 
----
 
 ### Prédictions et évaluation
 
@@ -1262,7 +1200,6 @@ print("MAE :", mae)
 print("R² :", r2)
 ```
 
----
 
 ### Interprétation
 
@@ -1271,7 +1208,6 @@ print("R² :", r2)
 - Le **learning_rate** et le **nombre d’arbres** doivent être choisis avec soin pour éviter le surapprentissage.  
 - Les paramètres de sous-échantillonnage (`subsample`, `colsample_bytree`) réduisent la variance et améliorent la généralisation.
 
----
 
 ### Points clés
 
