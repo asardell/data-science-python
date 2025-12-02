@@ -67,11 +67,36 @@ Ce dataset est idéal pour la formation car :
 - Créer une interface utilisateur (Streamlit)  
 - Conteneuriser un projet ML avec Docker  
 
-## Organisation générale du parcours
+## Programme de la formation
 
-- **Jour 1 :** Python, Data Science, manipulation des données  
-- **Jour 2 :** Machine Learning (supervisé / non supervisé)  
-- **Jour 3 :** Spark MLlib + Packaging + Streamlit + Docker
+Cette formation couvre les bases et les applications avancées de la **data science** avec Python, en suivant un parcours progressif :
+
+1. **Introduction**  
+   - `1-Introduction-data-science.md` : Concepts fondamentaux de la data science.  
+   - `2-Introduction-python.md` : Premiers pas avec Python pour l'analyse de données.  
+
+2. **Python et bonnes pratiques**  
+   - `3-Bonnes-pratiques-python.md` : Écriture de code Python propre et maintenable.  
+   - `4-Manipuler-des-donnees.md` : Gestion et transformation de données.  
+   - `5-Visualisation.md` : Création de graphiques et visualisations pertinentes.  
+   - `6-Preparation-des-donnnes.md` : Préparation et nettoyage des données.  
+
+3. **Méthodes et algorithmes**  
+   - `7-Méthodes-factorielles.md` : Analyse factorielle et réduction de dimensions.  
+   - `8-Clustering.md` : Regroupement et segmentation de données.  
+   - `9-Classification.md` : Algorithmes de classification.  
+   - `10-Régression.md` : Régression linéaire et avancée.  
+   - `11-Perceptrons.md` : Réseaux de neurones simples.  
+
+4. **Thèmes avancés**  
+   - `12-Interpretabilites-modeles.md` : Explicabilité et interprétation des modèles.  
+   - `13-MLops.md` : Déploiement et gestion de modèles en production.  
+   - `14-Text-Mining.md` : Analyse de texte et NLP.  
+   - `15-Reinforcement Learning.md` : Apprentissage par renforcement.  
+   - `16-Spark.md` : Traitement distribué avec Apache Spark.  
+
+Chaque chapitre est conçu pour être autonome et progresser de la théorie vers la pratique avec des exemples concrets en Python.
+
 
 ## Ressources utilisées
 
