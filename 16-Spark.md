@@ -609,10 +609,10 @@ for name, score in zip(assembler_input, importances):
 
 MLlib est l’outil adapté si :
 
-- ton dataset dépasse **1–2 millions de lignes**
+- le dataset dépasse **1–2 millions de lignes**
 - les fichiers sources sont très volumineux (DPE national)
-- tu veux paralléliser le calcul sans effort
-- tu veux entraîner des modèles rapides et robustes
+- on veut paralléliser le calcul sans effort
+- on veut entraîner des modèles rapides et robustes
 
 
 ## Résumé

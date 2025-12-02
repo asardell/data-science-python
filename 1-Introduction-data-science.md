@@ -1,21 +1,21 @@
 # Chapitre 1 : Introduction à la Data Science  
 
 - [Chapitre 1 : Introduction à la Data Science](#chapitre-1--introduction-à-la-data-science)
-  - [1. Qu’est-ce que la Data Science ?](#1-quest-ce-que-la-data-science-)
+  - [Qu’est-ce que la Data Science ?](#quest-ce-que-la-data-science-)
     - [Exemple concret (sur données ADEME — DPE)](#exemple-concret-sur-données-ademe--dpe)
-  - [2. Différence entre statistiques et Data Science](#2-différence-entre-statistiques-et-data-science)
+  - [Différence entre statistiques et Data Science](#différence-entre-statistiques-et-data-science)
     - [Statistiques](#statistiques)
     - [Data Science](#data-science)
     - [Comparaison synthétique](#comparaison-synthétique)
-  - [3. Champs d’application de la Data Science](#3-champs-dapplication-de-la-data-science)
-  - [4. Outils et algorithmes pour faire de la Data Science](#4-outils-et-algorithmes-pour-faire-de-la-data-science)
+  - [Champs d’application de la Data Science](#champs-dapplication-de-la-data-science)
+  - [Outils et algorithmes pour faire de la Data Science](#outils-et-algorithmes-pour-faire-de-la-data-science)
     - [Langages](#langages)
     - [Libraries Python](#libraries-python)
     - [Écosystème Python pour la Data Science](#écosystème-python-pour-la-data-science)
       - [Environnements de développement](#environnements-de-développement)
       - [Alternatives et outils populaires](#alternatives-et-outils-populaires)
       - [Résumé pédagogique](#résumé-pédagogique)
-  - [5. Les méthodes de Machine Learning](#5-les-méthodes-de-machine-learning)
+  - [Les méthodes de Machine Learning](#les-méthodes-de-machine-learning)
     - [Apprentissage supervisé](#apprentissage-supervisé)
       - [Classification](#classification)
       - [Régression](#régression)
@@ -23,7 +23,7 @@
     - [Apprentissage par renforcement](#apprentissage-par-renforcement)
 
 
-## 1. Qu’est-ce que la Data Science ?
+## Qu’est-ce que la Data Science ?
 
 La **Data Science** combine :  
 - statistiques  
@@ -32,6 +32,10 @@ La **Data Science** combine :
 - visualisation  
 
 👉 Objectif : **transformer des données brutes en décisions**.
+
+<p align="center">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Data_Science.png" alt="Source de l'image" width="600"/>
+</p>
 
 Trois grandes activités :  
 1. **Comprendre** (exploration, visualisation)  
@@ -45,7 +49,7 @@ On peut :
 - estimer les émissions CO₂  
 - recommander des rénovations  
 
-## 2. Différence entre statistiques et Data Science
+## Différence entre statistiques et Data Science
 
 ### Statistiques  
 - Approche **théorique** : on part souvent d’un modèle simple pour comprendre le phénomène.  
@@ -82,7 +86,12 @@ Ici, l’objectif est de produire une prédiction fiable, même si le modèle es
 Les deux disciplines sont **complémentaires**. On utilise souvent la statistique pour comprendre et nettoyer les données avant d’appliquer des modèles de Data Science plus complexes.
 
 
-## 3. Champs d’application de la Data Science
+## Champs d’application de la Data Science
+
+<p align="center">
+  <img src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20200103174349/11-Industries-That-Benefits-the-Most-From-Data-Science.png" alt="Source de l'image" width="600"/>
+</p>
+
 
 - **Industrie & énergie** → prédiction consommation, anomalies  
 - **E-commerce** → recommandations  
@@ -91,9 +100,10 @@ Les deux disciplines sont **complémentaires**. On utilise souvent la statistiqu
 - **Automobile** → prédiction pannes, conduite autonome  
 - **Grand public** → recherche, traduction, filtres photos
 
-## 4. Outils et algorithmes pour faire de la Data Science
+## Outils et algorithmes pour faire de la Data Science
 
 ### Langages
+
 - Python 
 - R  
 - SQL  
@@ -119,11 +129,21 @@ L’écosystème Python pour la Data Science est riche et diversifié. Il compre
   - Avantage : possibilité de **combiner code, graphiques et explications textuelles** dans le même document.  
   - Limite : moins pratique pour organiser un projet de code complexe ou pour production.
 
+<p align="center">
+  <img src="https://docs.jupyter.org/en/latest/_images/jupyterlab.png" alt="Source de l'image" width="600"/>
+</p>
+
 - **VSCode / PyCharm / autres IDE**  
   - Environnements de développement **classiques**.  
   - Idéal pour : scripts Python modulaires, projets structurés, intégration avec Git, tests unitaires, déploiement.  
   - **Exemple** : écrire un script `dpe_analysis.py` qui lit le dataset DPE, nettoie les données et produit un fichier CSV ou Parquet.  
   - Avantage : meilleure organisation du code, débogage, gestion des dépendances.
+
+
+<p align="center">
+  <img src="https://code.visualstudio.com/assets/docs/python/editing/sortImports.gif" alt="Source de l'image" width="600"/>
+</p>
+
 
 #### Alternatives et outils populaires
 
@@ -152,7 +172,7 @@ L’écosystème Python pour la Data Science est riche et diversifié. Il compre
 Pour débuter, utilisez **Jupyter Notebook** pour comprendre les concepts et manipuler les données.  
 Pour des projets structurés ou destinés à la production, préférez **VSCode** ou un autre IDE.
 
-## 5. Les méthodes de Machine Learning
+## Les méthodes de Machine Learning
 
 Le **Machine Learning (ML)** regroupe des techniques permettant à un programme d’apprendre à partir de données.  
 Pour les algorithmes classiques supervisés ou non supervisés, les données doivent être **tabulaires** :  
@@ -164,11 +184,21 @@ Pour les algorithmes classiques supervisés ou non supervisés, les données doi
 
 Selon que l’on dispose ou non d’une cible à prédire, les algorithmes se classent en trois grandes familles : **supervisé, non supervisé, et par renforcement**.
 
+<p align="center">
+  <img src="https://i0.wp.com/deeplylearning.fr/wp-content/uploads/2018/09/type-of-learning.png?resize=781%2C558&ssl=1" alt="Source de l'image" width="600"/>
+</p>
+
+
 ### Apprentissage supervisé
 
 **Objectif : prédire une valeur ou une catégorie à partir d’exemples annotés.**  
 
 On dispose d’un **dataset avec les entrées (features)** et les **résultats connus (labels)**. L’algorithme apprend une relation entre les deux.
+
+<p align="center">
+  <img src="https://storage.googleapis.com/algodailyrandomassets/curriculum/machine-learning/ml-interview-questions/classification%20and%20regression.jpeg" alt="Source de l'image" width="600"/>
+</p>
+
 
 #### Classification
 → prédire une **catégorie**  
@@ -202,6 +232,11 @@ On dispose d’un **dataset avec les entrées (features)** et les **résultats c
 **Objectif : découvrir une structure cachée dans les données**  
 Aucune variable cible n’est fournie. L’algorithme cherche à **regrouper, résumer ou détecter des anomalies**.
 
+<p align="center">
+  <img src="https://scikit-learn.org/stable/_images/sphx_glr_plot_cluster_comparison_001.png" alt="Source de l'image" width="600"/>
+</p>
+
+
 Clustering
 - Exemple : K-means  
 - Objectif ADEME : regrouper des bâtiments ayant des profils énergétiques similaires, par exemple pour identifier les bâtiments les plus énergivores.
@@ -213,6 +248,12 @@ Réduction de dimension
 ### Apprentissage par renforcement
 
 **Objectif : apprendre à agir dans un environnement en recevant des récompenses ou pénalités.**  
+
+<p align="center">
+  <img src="https://miro.medium.com/v2/resize:fit:1400/1*7MxNJJ9IRn9R4tf31DaCLg.png" width="600"/>
+</p>
+
+
 
 - Le modèle teste des actions, observe les conséquences et ajuste sa stratégie pour maximiser la récompense cumulée.  
 - **Exemples génériques :** jeux vidéo (AlphaGo), robotique, trading automatique.  
