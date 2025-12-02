@@ -1,4 +1,4 @@
-# 📘 Formation Data Science avec Python  
+# Formation Data Science avec Python  
 **Durée : 3 jours — Théorie + Pratique + Mini-projets**  
 **Dataset principal : Données DPE issues de l’API ADEME**
 
@@ -79,5 +79,6 @@ Ce dataset est idéal pour la formation car :
 - **Jupyter Notebook**  
 - **VSCode**
 
+## Liens utiles :
 
-
+- [Challenge ENEDIS](https://defis.data.gouv.fr/defis/65b76f15d7874915c8e41298/)

@@ -24,7 +24,9 @@ Dans ce chapitre, nous allons aborder des notions qui permettent de **mieux orga
     - [Installer des librairies dans l’environnement](#installer-des-librairies-dans-lenvironnement)
     - [Exporter les dépendances](#exporter-les-dépendances)
     - [Créer un second environnement pour test](#créer-un-second-environnement-pour-test)
-    - [Utiliser l’environnement virtuel dans VS Code](#utiliser-lenvironnement-virtuel-dans-vs-code)
+    - [Utiliser Jupyer notebook en localhost](#utiliser-jupyer-notebook-en-localhost)
+    - [Notebooks interactifs dans VS Code](#notebooks-interactifs-dans-vs-code)
+    - [Créer un notebook interactif](#créer-un-notebook-interactif)
   - [Exercice : Création de fonctions sur l'API ADEME](#exercice--création-de-fonctions-sur-lapi-ademe)
     - [1. Préparer l'environnement](#1-préparer-lenvironnement)
     - [2. Créer une fonction pour interroger une page de l’API](#2-créer-une-fonction-pour-interroger-une-page-de-lapi)
@@ -328,7 +330,7 @@ pip list  # vérifier que toutes les librairies sont bien installées
 ```
 
 
-### Utiliser l’environnement virtuel dans VS Code
+### Utiliser Jupyer notebook en localhost
 
 1. Ouvrez VS Code dans votre projet.
 2. Ouvrez le terminal intégré (cmd ou PowerShell).
@@ -341,8 +343,26 @@ pip list  # vérifier que toutes les librairies sont bien installées
 :bulb:  Pour une utilisation de Jupyter dans VS Code, installer également `ipykernel` après avoir activité l'environnement `env-ademe` :
 
 ```cmd
+pip install notebook
 pip install ipykernel
+jupyter notebook
 ```
+
+### Notebooks interactifs dans VS Code
+
+Installer les extensions nécessaires
+
+1. Ouvre VS Code et va dans **Extensions** (Ctrl+Shift+X).  
+2. Installe **Python** (par Microsoft).  
+3. Installe **Jupyter** (par Microsoft).  
+
+Ces deux extensions sont indispensables pour travailler avec des notebooks interactifs.
+
+### Créer un notebook interactif
+
+1. Appuie sur **Ctrl+Shift+P** → tape `Jupyter: Create New Blank Notebook`.  
+2. Choisis le **kernel** correspondant à ton environnement Python (ex. `env-ademe`).  
+3. On peut maintenant écrire et exécuter du code cellule par cellule directement dans VS Code.
 
 ## Exercice : Création de fonctions sur l'API ADEME
 
