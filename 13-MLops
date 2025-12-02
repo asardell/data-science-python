@@ -304,6 +304,11 @@ Le module **Pipeline** de scikit-learn est indispensable en machine learning :
 
 # Introduction à **MLflow**
 
+<p align="center">
+  <img src="https://mlflow.org/docs/latest/api_reference/_static/MLflow-logo-final-black.png" alt="Source de l'image" width="600"/>
+</p>
+
+
 ## Qu’est-ce que MLflow ?
 
 MLflow est une plateforme open-source conçue pour **gérer l’ensemble du cycle de vie d’un projet de Machine Learning**.  
