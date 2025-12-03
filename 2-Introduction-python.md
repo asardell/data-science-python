@@ -150,6 +150,11 @@ else:
 ```python
 conso_usages = [3506.6, 3670.8, 139.2, 0]  # chauffage, ECS, éclairage, refroidissement
 
+for conso in conso_usages:
+    print(conso_usages)
+
+#ou
+
 for i, conso in enumerate(conso_usages):
     print(f"Usage {i+1} : {conso} kWh")
 ```
@@ -300,6 +305,10 @@ date_obj = datetime.strptime(date_str, "%Y-%m-%d")
 print("Année :", date_obj.year)
 ```
 
+<p align="center">
+  <img src="https://miro.medium.com/1*TvATjaiHcUMigxNNb4Cdcw.png" alt="Source de l'image" width="600"/>
+</p>
+
 - La **bibliothèque standard** est souvent suffisante pour les premières explorations de données.  
 - Ensuite, on pourra introduire **NumPy, Pandas, Matplotlib** pour des traitements plus puissants et analytiques.
 
@@ -338,6 +347,9 @@ Une **API (Application Programming Interface)** permet à un programme de **dema
   - `size` : nombre de résultats par page
   - `select` : quelles colonnes récupérer
   - `qs` : filtre sur certaines valeurs (ex. `code_departement_ban:75`)
+
+Ici nous utilisons les données issues de la plateforme [OpenData de l'ADEME](https://data.ademe.fr/) et son  [API](https://data.ademe.fr/datasets/dpe03existant/api-doc?operation=readLines).
+
 
 ### 2. Exemple d’une requête simple
 
@@ -416,7 +428,7 @@ for dep in departements:
     donnees_collectees = []
     page = 1
 
-    while (True | page<20):
+    while (page<20):
         params = {
             "page": page,
             "size": page_size,
