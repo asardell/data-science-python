@@ -27,21 +27,21 @@
   - [La librairie `scikit-learn`](#la-librairie-scikit-learn)
     - [Pourquoi scikit-learn est-elle si populaire ?](#pourquoi-scikit-learn-est-elle-si-populaire-)
     - [Installation de la librairie](#installation-de-la-librairie)
-    - [Preprocessing](#preprocessing)
-      - [Chargement du dataset et sélection des variables utiles](#chargement-du-dataset-et-sélection-des-variables-utiles)
-      - [Analyse du taux de valeurs manquantes](#analyse-du-taux-de-valeurs-manquantes)
-      - [Suppression des colonnes trop manquantes](#suppression-des-colonnes-trop-manquantes)
-      - [Imputation des valeurs manquantes restantes](#imputation-des-valeurs-manquantes-restantes)
-      - [Création de la variable cible](#création-de-la-variable-cible)
-      - [Définition de X (features) et Y (target)](#définition-de-x-features-et-y-target)
-      - [Encodage des variables catégorielles](#encodage-des-variables-catégorielles)
-      - [Gestion des valeurs extrêmes par clipping](#gestion-des-valeurs-extrêmes-par-clipping)
-      - [Séparation train/test](#séparation-traintest)
-      - [Analyse échantillon](#analyse-échantillon)
-        - [Taille des jeux de données](#taille-des-jeux-de-données)
-        - [Répartition de la variable cible (Y)](#répartition-de-la-variable-cible-y)
-      - [Standardisation des variables numériques](#standardisation-des-variables-numériques)
-      - [Conclusion](#conclusion)
+  - [Preprocessing](#preprocessing)
+    - [Chargement du dataset et sélection des variables utiles](#chargement-du-dataset-et-sélection-des-variables-utiles)
+    - [Analyse du taux de valeurs manquantes](#analyse-du-taux-de-valeurs-manquantes)
+    - [Suppression des colonnes trop manquantes](#suppression-des-colonnes-trop-manquantes)
+    - [Imputation des valeurs manquantes restantes](#imputation-des-valeurs-manquantes-restantes)
+    - [Création de la variable cible](#création-de-la-variable-cible)
+    - [Définition de X (features) et Y (target)](#définition-de-x-features-et-y-target)
+    - [Encodage des variables catégorielles](#encodage-des-variables-catégorielles)
+    - [Gestion des valeurs extrêmes par clipping](#gestion-des-valeurs-extrêmes-par-clipping)
+    - [Séparation train/test](#séparation-traintest)
+    - [Analyse échantillon](#analyse-échantillon)
+      - [Taille des jeux de données](#taille-des-jeux-de-données)
+      - [Répartition de la variable cible (Y)](#répartition-de-la-variable-cible-y)
+    - [Standardisation des variables numériques](#standardisation-des-variables-numériques)
+    - [Conclusion](#conclusion)
   - [Arbres de décision pour la classification](#arbres-de-décision-pour-la-classification)
     - [Introduction](#introduction)
     - [Préparation de l’échantillon](#préparation-de-léchantillon-1)
@@ -226,9 +226,7 @@ Pour comparer et interpréter les modèles de classification, plusieurs **métri
 #### F1-Score
 - Moyenne harmonique entre précision et rappel, utile en cas de déséquilibre des classes.
 
-\[
-F1 = 2 \times \frac{\text{Précision} \times \text{Rappel}}{\text{Précision} + \text{Rappel}}
-\]
+F1-score : $F1 = 2 \times \frac{\text{Précision} \times \text{Rappel}}{\text{Précision} + \text{Rappel}}$
 
 #### Courbes ROC et AUC
 - Permettent de visualiser le compromis entre **taux de vrais positifs** et **taux de faux positifs**.  
@@ -362,13 +360,13 @@ Elle est idéale pour les projets de machine learning **supervisé** (régressio
 pip install scikit-learn
 ```
 
-### Preprocessing
+## Preprocessing
  
 Les opérations suivantes couvrent tout le pipeline de preprocessing :  
 sélection des variables, nettoyage, traitement des valeurs manquantes, encodage, gestion des valeurs extrêmes, standardisation et séparation train/test.
 
 
-#### Chargement du dataset et sélection des variables utiles
+### Chargement du dataset et sélection des variables utiles
 
 Avant toute préparation, il est nécessaire de charger les données et de sélectionner les colonnes pertinentes.  
 Ici, on se limite à une extraction de 10000 lignes pour illustrer le processus.
@@ -397,7 +395,7 @@ cols_utiles = [
 df = dfDpe[cols_utiles].copy()
 ```
 
-#### Analyse du taux de valeurs manquantes
+### Analyse du taux de valeurs manquantes
 
 L’analyse des valeurs manquantes est une étape incontournable.  
 Elle permet de visualiser quelles colonnes sont partiellement ou massivement incomplètes.
@@ -410,7 +408,7 @@ print("Taux de valeurs manquantes (%) par colonne :")
 print(missing_rate)
 ```
 
-#### Suppression des colonnes trop manquantes
+### Suppression des colonnes trop manquantes
 
 Une colonne contenant plus de 75 % de valeurs manquantes apporte très peu d’information et génère souvent plus de bruit que de valeur.  
 On définit donc un seuil de suppression.
@@ -425,7 +423,7 @@ print(cols_to_drop)
 df = df.drop(columns=cols_to_drop)
 ```
 
-#### Imputation des valeurs manquantes restantes
+### Imputation des valeurs manquantes restantes
 
 Une fois les colonnes très manquantes supprimées, il reste des valeurs isolées à traiter.
 
@@ -454,7 +452,7 @@ print("Imputation terminée.")
 print(df.isna().sum())
 ```
 
-#### Création de la variable cible
+### Création de la variable cible
 
 On cherche ici à prédire si un logement est classé en passoire énergétique.  
 On définit donc une variable binaire basée sur l'étiquette DPE.
@@ -469,7 +467,7 @@ Toutes les lignes contenant encore des valeurs manquantes sont ensuite supprimé
 df = df.dropna()
 ```
 
-#### Définition de X (features) et Y (target)
+### Définition de X (features) et Y (target)
 
 Certaines variables, comme les consommations, sont retirées du modèle afin d’éviter des fuites de données.  
 Les variables explicatives contiennent donc uniquement des caractéristiques du bâtiment.
@@ -481,7 +479,7 @@ Y = df["passoire_energetique"]
 X = df.drop(columns=["passoire_energetique", "etiquette_dpe"] + vars_conso)
 ```
 
-#### Encodage des variables catégorielles
+### Encodage des variables catégorielles
 
 Le modèle ne peut exploiter que des valeurs numériques.  
 Les variables textuelles sont donc transformées en variables indicatrices (one-hot encoding).
@@ -490,7 +488,7 @@ Les variables textuelles sont donc transformées en variables indicatrices (one-
 X = pd.get_dummies(X, drop_first=True)
 ```
 
-#### Gestion des valeurs extrêmes par clipping
+### Gestion des valeurs extrêmes par clipping
 
 Les valeurs aberrantes perturbent fortement les modèles.  
 On applique ici un clipping entre les quantiles 1 % et 99 % afin de limiter l’influence de ces extrêmes sans supprimer d'informations.
@@ -509,7 +507,7 @@ for c in num_cols:
 print("Outliers capés")
 ```
 
-#### Séparation train/test
+### Séparation train/test
 
 Pour évaluer correctement la performance d’un modèle, on sépare le dataset en un ensemble d’entraînement et un ensemble de test.  
 La stratification permet d’équilibrer la proportion de passoires énergétiques dans les deux sous-échantillons.
@@ -524,12 +522,12 @@ X_train, X_test, y_train, y_test = train_test_split(
 print("Train/test split réalisé.")
 ```
 
-#### Analyse échantillon
+### Analyse échantillon
 
 Une fois le découpage entre les jeux **X_train**, **X_test**, **Y_train** et **Y_test** effectué, il est indispensable de vérifier que l’échantillonnage est équilibré et cohérent.  
 L’objectif est de s’assurer que la proportion de *passoires énergétiques* (valeur cible) est similaire entre les deux jeux, afin d’éviter un biais dans l’apprentissage du modèle.
 
-##### Taille des jeux de données
+#### Taille des jeux de données
 
 Le premier contrôle consiste à afficher le nombre d’observations dans :
 - le dataset total,
@@ -546,7 +544,7 @@ print("Taille y_train :", len(y_train))
 print("Taille y_test  :", len(y_test))
 ```
 
-##### Répartition de la variable cible (Y)
+#### Répartition de la variable cible (Y)
 
 Comme la variable **passoire_energetique** est binaire, il est essentiel d’examiner sa distribution.  
 On utilise ici `value_counts(normalize=True)` afin d’obtenir les proportions.
@@ -561,7 +559,7 @@ print(Y_test.value_counts(normalize=True))
 
 L’objectif est que les proportions soient **relativement similaires** entre *train* et *test*, ce qui est garanti par l’option `stratify=Y` dans `train_test_split`.
 
-#### Standardisation des variables numériques
+### Standardisation des variables numériques
 
 La standardisation doit impérativement être effectuée **après le train/test split**.  
 En effet, appliquer un `fit_transform()` sur l’ensemble du dataset avant le découpage introduirait une **fuite d’information** : les statistiques (moyenne, écart-type) calculées sur tout le dataset intègrent alors une partie du test, ce qui biaise l’évaluation du modèle.
@@ -589,7 +587,7 @@ X_test
 
 Cette approche garantit que le modèle n’a accès à aucune information provenant du jeu de test pendant la phase d’entraînement.
 
-#### Conclusion
+### Conclusion
 
 Le pipeline de preprocessing présenté ici constitue un flux complet et fiable pour préparer un dataset avant toute modélisation ML.  
 Il couvre :
