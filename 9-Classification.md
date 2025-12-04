@@ -226,7 +226,7 @@ Pour comparer et interpréter les modèles de classification, plusieurs **métri
 #### F1-Score
 - Moyenne harmonique entre précision et rappel, utile en cas de déséquilibre des classes.
 
-F1-score : $F1 = 2 \times \frac{\text{Précision} \times \text{Rappel}}{\text{Précision} + \text{Rappel}}$
+$F1 = 2 \times \frac{\text{Précision} \times \text{Rappel}}{\text{Précision} + \text{Rappel}}$
 
 #### Courbes ROC et AUC
 - Permettent de visualiser le compromis entre **taux de vrais positifs** et **taux de faux positifs**.  
@@ -990,18 +990,15 @@ Même si la régression logistique est utilisée pour **des problèmes de classi
 1. **Transformation linéaire des variables explicatives**  
    La régression logistique calcule une **combinaison linéaire** des variables explicatives, exactement comme dans une régression linéaire classique :
 
-   ```
-   z = b0 + b1*x1 + b2*x2 + ... + bn*xn
-   ```
+$z = b_0 + b_1 x_1 + b_2 x_2 + \dots + b_n x_n$
 
    Ici, `z` est une valeur continue qui résume l’influence des variables sur la probabilité d’appartenance à la classe cible.
 
 2. **Fonction logistique (sigmoïde)**  
    Pour transformer cette combinaison linéaire `z` en une **probabilité comprise entre 0 et 1**, on applique la **fonction sigmoïde** :
 
-   ```
-   p = 1 / (1 + exp(-z))
-   ```
+
+$p = \frac{1}{1 + e^{-z}}$
 
    Cette probabilité `p` représente la chance que l’observation appartienne à la classe positive.
 
