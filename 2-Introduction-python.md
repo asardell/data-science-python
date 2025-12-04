@@ -109,10 +109,10 @@ print("Liste des consommations par usage :", conso_usages)
 | Type de données | Opérateur | Exemple | Résultat | Remarques |
 |-----------------|-----------|---------|----------|------------|
 | Booléens simples | `and` | `True and False` | `False` | Utilisé pour combiner des conditions classiques |
-| Booléens simples | `or` | `True or False` | `True` | Préféré à `|` pour les conditions simples |
+| Booléens simples | `or` | `True or False` | `True` | Préféré à `\|` pour les conditions simples |
 | Booléens simples | `not` | `not True` | `False` | Négation |
 | Tableaux / Series (NumPy / pandas) | `&` | `(df["surface"] > 30) & (df["etiquette"] == "D")` | Series booléenne | Nécessite des parenthèses autour de chaque condition |
-| Tableaux / Series (NumPy / pandas) | `|` | `(df["surface"] > 30) | (df["etiquette"] == "D")` | Series booléenne | Nécessite des parenthèses autour de chaque condition |
+| Tableaux / Series (NumPy / pandas) | `\|` | `(df["surface"] > 30) \| (df["etiquette"] == "D")` | Series booléenne | Nécessite des parenthèses autour de chaque condition |
 | Tableaux / Series (NumPy / pandas) | `~` | `~(df["surface"] > 30)` | Series booléenne | Négation élément-par-élément |
 
 

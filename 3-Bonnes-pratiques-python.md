@@ -8,6 +8,7 @@ Dans ce chapitre, nous allons aborder des notions qui permettent de **mieux orga
     - [Exercice : Gestion des erreurs et exceptions lors de l'interrogation de l'API ADEME](#exercice--gestion-des-erreurs-et-exceptions-lors-de-linterrogation-de-lapi-ademe)
   - [Spécifier le type des arguments et le type de retour d’une fonction](#spécifier-le-type-des-arguments-et-le-type-de-retour-dune-fonction)
     - [Exemple - Créer une fonction `extraire_page_api()`](#exemple---créer-une-fonction-extraire_page_api)
+    - [Pourquoi Python n'affiche pas d’erreur même si les types ne correspondent pas ?](#pourquoi-python-naffiche-pas-derreur-même-si-les-types-ne-correspondent-pas-)
     - [Pourquoi typer vos fonctions ?](#pourquoi-typer-vos-fonctions-)
   - [Fonctions et paramètres avancés (args, kwargs)](#fonctions-et-paramètres-avancés-args-kwargs)
     - [Exemple simple](#exemple-simple)
@@ -113,6 +114,51 @@ Ici :
 - `page: int` et `size: int` → doivent être des entiers  
 - `-> Dict[str, Any]` → la fonction renvoie un dictionnaire JSON  
 
+### Pourquoi Python n'affiche pas d’erreur même si les types ne correspondent pas ?
+
+En Python, les annotations de type comme :
+
+```python
+url: str
+page: int
+size: int
+-> Dict[str, Any]
+```
+
+ne sont **jamais vérifiées automatiquement**.
+
+Python est un langage à **typage dynamique**, ce qui signifie :
+
+- les annotations ne sont que **des indications**  
+- elles ne sont **pas appliquées à l’exécution**  
+- Python **n’empêche pas** d’envoyer une valeur du mauvais type  
+
+```python
+def extraire_page_api(url: str, page: int, size: int) -> Dict[str, Any]:
+    return {"page": page}
+```
+
+Appel :
+
+```python
+extraire_page_api(123, "bonjour", [10])
+```
+
+Résultat :
+
+- aucune erreur
+- Python exécute normalement
+
+Pourquoi ?  
+Parce que Python **ignore complètement** les annotations lors de l'exécution.
+Python **ne vérifie rien**, mais d'autres outils le peuvent :
+
+- **mypy**
+- **pyright**
+- **pylance**
+
+Ces outils font une **analyse statique**, avant exécution.
+
 ### Pourquoi typer vos fonctions ?
 
 | Avantage | Explication |
@@ -211,6 +257,10 @@ def calculBesoinChauffage(surface,consommation_par_m2):
 Les environnements virtuels permettent d'isoler les dépendances Python pour chaque projet.  
 Cela évite les conflits de version et garantit que le projet fonctionne toujours avec les bonnes librairies.
 
+
+<p align="center">
+  <img src="https://www.dataquest.io/wp-content/uploads/2022/01/python-virtual-envs1.webp" alt="Source de l'image" width="600"/>
+</p>
 
 ### Vérifier Python et pip
 
@@ -397,6 +447,8 @@ Cette fonction doit :
 - gérer les erreurs avec `try / except`
 - respecter le typage des arguments et du retour  
 
+:warning: Ce code sera dans le script `api_utils.py`.
+
 ```python
 from typing import Dict, Any
 import requests
@@ -434,8 +486,10 @@ Cette fonction doit :
 - stocker les résultats dans une liste
 - gérer les erreurs et arrêter proprement si l’API échoue
 
+:warning: Ce code sera dans le script `api_utils.py`.
+
 ```python
-from typing import List, Dict
+from typing import List, Dict, Any
 
 def extraire_toutes_pages(url: str, nb_pages: int, page_size: int, dep: str) -> List[Dict[str, Any]]:
     """
@@ -455,9 +509,11 @@ def extraire_toutes_pages(url: str, nb_pages: int, page_size: int, dep: str) -> 
 
 Pour faciliter l’analyse, on souhaite exporter les résultats dans un CSV en utilisant Pandas.
 
+:warning: Ce code sera dans le script `data_utils.py`.
+
 ```python
 import pandas as pd
-from typing import List, Dict
+from typing import List, Dict, Any
 
 def exporter_csv(data: List[Dict[str, Any]], fichier: str) -> None:
     """
@@ -475,11 +531,13 @@ def exporter_csv(data: List[Dict[str, Any]], fichier: str) -> None:
 
 Le script principal va orchestrer l’ensemble :
 
+:warning: Ce code sera dans le script `main.py`.
+
 ```python
 from api_utils import extraire_toutes_pages
 from data_utils import exporter_csv
 
-URL_API = "https://api.ademe.fr/dpe"  # exemple
+URL_API = "https://data.ademe.fr/data-fair/api/v1/datasets/dpe03existant/lines"
 NB_PAGES = 5
 PAGE_SIZE = 100
 DEPARTEMENT = "75"  # Paris
