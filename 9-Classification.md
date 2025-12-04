@@ -24,6 +24,24 @@
       - [Principe](#principe)
       - [Validation croisée et utilisation après estimation](#validation-croisée-et-utilisation-après-estimation)
     - [Points clés à retenir](#points-clés-à-retenir)
+  - [La librairie `scikit-learn`](#la-librairie-scikit-learn)
+    - [Pourquoi scikit-learn est-elle si populaire ?](#pourquoi-scikit-learn-est-elle-si-populaire-)
+    - [Installation de la librairie](#installation-de-la-librairie)
+    - [Preprocessing](#preprocessing)
+      - [Chargement du dataset et sélection des variables utiles](#chargement-du-dataset-et-sélection-des-variables-utiles)
+      - [Analyse du taux de valeurs manquantes](#analyse-du-taux-de-valeurs-manquantes)
+      - [Suppression des colonnes trop manquantes](#suppression-des-colonnes-trop-manquantes)
+      - [Imputation des valeurs manquantes restantes](#imputation-des-valeurs-manquantes-restantes)
+      - [Création de la variable cible](#création-de-la-variable-cible)
+      - [Définition de X (features) et Y (target)](#définition-de-x-features-et-y-target)
+      - [Encodage des variables catégorielles](#encodage-des-variables-catégorielles)
+      - [Gestion des valeurs extrêmes par clipping](#gestion-des-valeurs-extrêmes-par-clipping)
+      - [Séparation train/test](#séparation-traintest)
+      - [Analyse échantillon](#analyse-échantillon)
+        - [Taille des jeux de données](#taille-des-jeux-de-données)
+        - [Répartition de la variable cible (Y)](#répartition-de-la-variable-cible-y)
+      - [Standardisation des variables numériques](#standardisation-des-variables-numériques)
+      - [Conclusion](#conclusion)
   - [Arbres de décision pour la classification](#arbres-de-décision-pour-la-classification)
     - [Introduction](#introduction)
     - [Préparation de l’échantillon](#préparation-de-léchantillon-1)
@@ -86,7 +104,7 @@
     - [Implémentation](#implémentation)
     - [Évaluation du modèle](#évaluation-du-modèle-2)
     - [Feature Importance](#feature-importance)
-    - [Conclusion](#conclusion)
+    - [Conclusion](#conclusion-1)
   - [Gradient Boosting](#gradient-boosting)
     - [Comprendre le Boosting](#comprendre-le-boosting)
     - [La fonction de perte (loss function)](#la-fonction-de-perte-loss-function)
@@ -104,7 +122,7 @@
       - [Avantages](#avantages-2)
       - [Inconvénients](#inconvénients-2)
     - [Conseils pratiques](#conseils-pratiques)
-    - [Conclusion](#conclusion-1)
+    - [Conclusion](#conclusion-2)
   - [Récapitulatif](#récapitulatif)
 - [Exercice : Prédiction des étiquettes DPE (classification multi-classes)](#exercice--prédiction-des-étiquettes-dpe-classification-multi-classes)
 
@@ -208,9 +226,19 @@ Pour comparer et interpréter les modèles de classification, plusieurs **métri
 #### F1-Score
 - Moyenne harmonique entre précision et rappel, utile en cas de déséquilibre des classes.
 
+\[
+F1 = 2 \times \frac{\text{Précision} \times \text{Rappel}}{\text{Précision} + \text{Rappel}}
+\]
+
 #### Courbes ROC et AUC
 - Permettent de visualiser le compromis entre **taux de vrais positifs** et **taux de faux positifs**.  
 - L’AUC mesure la capacité globale du modèle à distinguer les classes (1 = parfait, 0.5 = hasard).
+
+
+<p align="center">
+  <img src="https://cdn.prod.website-files.com/660ef16a9e0687d9cc27474a/662c42679571ef35419c9935_647607123e84a06a426ce627_classification_metrics_014-min.png" alt="Source de l'image" width="600"/>
+</p>
+
 
 
 ### Exemple illustratif
@@ -312,6 +340,273 @@ Pour comparer et interpréter les modèles de classification, plusieurs **métri
 - La séparation **train/test** et les métriques de performance sont indispensables pour évaluer la **généralisation**.  
 - En pratique, comparer plusieurs modèles et utiliser des métriques complémentaires permet de choisir le meilleur modèle pour un projet réel comme le DPE.
 
+## La librairie `scikit-learn`
+
+La librairie **scikit-learn** (souvent appelée *sklearn*) est l’un des outils les plus utilisés en machine learning. Elle fournit un ensemble cohérent, simple d’utilisation et performant pour créer, entraîner, évaluer et déployer des modèles de machine learning classiques.
+
+### Pourquoi scikit-learn est-elle si populaire ?
+
+Scikit-learn est largement adoptée pour plusieurs raisons :
+
+- **Interface unifiée** : tous les modèles utilisent les mêmes méthodes (`fit`, `predict`, `transform`, etc.)
+- **Documentation claire** : très accessible pour les débutants comme pour les experts
+- **Communauté active** : nombreuses ressources, tutoriels, exemples
+- **Performances solides** : implémentations optimisées en C/Cython
+- **Compatibilité avec NumPy, Pandas et SciPy** : s’intègre parfaitement à l’écosystème Python
+
+Elle est idéale pour les projets de machine learning **supervisé** (régression, classification) et **non supervisé** (clustering, réduction de dimension).
+
+### Installation de la librairie
+
+```shell
+pip install scikit-learn
+```
+
+### Preprocessing
+ 
+Les opérations suivantes couvrent tout le pipeline de preprocessing :  
+sélection des variables, nettoyage, traitement des valeurs manquantes, encodage, gestion des valeurs extrêmes, standardisation et séparation train/test.
+
+
+#### Chargement du dataset et sélection des variables utiles
+
+Avant toute préparation, il est nécessaire de charger les données et de sélectionner les colonnes pertinentes.  
+Ici, on se limite à une extraction de 10000 lignes pour illustrer le processus.
+
+Ensuite, on conserve uniquement une liste de variables importantes pour la modélisation, incluant des caractéristiques du bâtiment, des déperditions, des consommations et l'étiquette énergétique.
+
+
+```python
+import pandas as pd
+import numpy as np
+
+dfDpe = pd.read_csv("dpe_2021_2025.csv", nrows=10000)
+
+cols_utiles = [
+    "conso_5_usages_ef", "deperditions_planchers_bas", "annee_construction",
+    "type_generateur_chauffage_principal", "type_batiment",
+    "type_energie_principale_chauffage", "numero_dpe",
+    "surface_habitable_immeuble", "deperditions_murs", "conso_ecs_ef",
+    "nombre_appartement", "deperditions_portes", "deperditions_renouvellement_air",
+    "deperditions_baies_vitrees", "deperditions_planchers_hauts",
+    "zone_climatique", "type_energie_n1", "deperditions_ponts_thermiques",
+    "type_installation_chauffage", "surface_habitable_logement",
+    "hauteur_sous_plafond", "conso_chauffage_ef", "etiquette_dpe"
+]
+
+df = dfDpe[cols_utiles].copy()
+```
+
+#### Analyse du taux de valeurs manquantes
+
+L’analyse des valeurs manquantes est une étape incontournable.  
+Elle permet de visualiser quelles colonnes sont partiellement ou massivement incomplètes.
+
+Le calcul du pourcentage de valeurs manquantes par colonne guide la stratégie de nettoyage.
+
+```python
+missing_rate = df.isna().mean().sort_values(ascending=False) * 100
+print("Taux de valeurs manquantes (%) par colonne :")
+print(missing_rate)
+```
+
+#### Suppression des colonnes trop manquantes
+
+Une colonne contenant plus de 75 % de valeurs manquantes apporte très peu d’information et génère souvent plus de bruit que de valeur.  
+On définit donc un seuil de suppression.
+
+```python
+threshold = 0.75
+cols_to_drop = missing_rate[missing_rate > threshold * 100].index.tolist()
+
+print("Colonnes supprimées (> 75% missing) :")
+print(cols_to_drop)
+
+df = df.drop(columns=cols_to_drop)
+```
+
+#### Imputation des valeurs manquantes restantes
+
+Une fois les colonnes très manquantes supprimées, il reste des valeurs isolées à traiter.
+
+Deux stratégies sont appliquées :  
+- médiane pour les variables numériques  
+- mode pour les variables catégorielles  
+
+Ces techniques sont robustes et évitent d’introduire des valeurs extrêmes.
+
+```python
+num_cols = df.select_dtypes(include=["int64", "float64"]).columns
+cat_cols = df.select_dtypes(include=["object"]).columns
+
+for col in num_cols:
+    median_val = df[col].median()
+    df[col] = df[col].fillna(median_val)
+
+for col in cat_cols:
+    mode_val = df[col].mode(dropna=True)
+    if len(mode_val) > 0:
+        df[col] = df[col].fillna(mode_val.iloc[0])
+    else:
+        df[col] = df[col].fillna("Inconnu")
+
+print("Imputation terminée.")
+print(df.isna().sum())
+```
+
+#### Création de la variable cible
+
+On cherche ici à prédire si un logement est classé en passoire énergétique.  
+On définit donc une variable binaire basée sur l'étiquette DPE.
+
+```python
+df["passoire_energetique"] = df["etiquette_dpe"].isin(["E", "F", "G"])
+```
+
+Toutes les lignes contenant encore des valeurs manquantes sont ensuite supprimées.
+
+```python
+df = df.dropna()
+```
+
+#### Définition de X (features) et Y (target)
+
+Certaines variables, comme les consommations, sont retirées du modèle afin d’éviter des fuites de données.  
+Les variables explicatives contiennent donc uniquement des caractéristiques du bâtiment.
+
+```python
+vars_conso = ["conso_5_usages_ef", "conso_chauffage_ef", "conso_ecs_ef"]
+
+Y = df["passoire_energetique"]
+X = df.drop(columns=["passoire_energetique", "etiquette_dpe"] + vars_conso)
+```
+
+#### Encodage des variables catégorielles
+
+Le modèle ne peut exploiter que des valeurs numériques.  
+Les variables textuelles sont donc transformées en variables indicatrices (one-hot encoding).
+
+```python
+X = pd.get_dummies(X, drop_first=True)
+```
+
+#### Gestion des valeurs extrêmes par clipping
+
+Les valeurs aberrantes perturbent fortement les modèles.  
+On applique ici un clipping entre les quantiles 1 % et 99 % afin de limiter l’influence de ces extrêmes sans supprimer d'informations.
+
+```python
+num_cols = X.select_dtypes(include=["int64", "float64"]).columns
+
+def manage_outlier(col, low=0.01, high=0.99):
+    q_low = col.quantile(low)
+    q_high = col.quantile(high)
+    return col.clip(lower=q_low, upper=q_high)
+
+for c in num_cols:
+    X[c] = manage_outlier(X[c])
+
+print("Outliers capés")
+```
+
+#### Séparation train/test
+
+Pour évaluer correctement la performance d’un modèle, on sépare le dataset en un ensemble d’entraînement et un ensemble de test.  
+La stratification permet d’équilibrer la proportion de passoires énergétiques dans les deux sous-échantillons.
+
+```python
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, Y, test_size=0.30, random_state=42, stratify=Y
+)
+
+print("Train/test split réalisé.")
+```
+
+#### Analyse échantillon
+
+Une fois le découpage entre les jeux **X_train**, **X_test**, **Y_train** et **Y_test** effectué, il est indispensable de vérifier que l’échantillonnage est équilibré et cohérent.  
+L’objectif est de s’assurer que la proportion de *passoires énergétiques* (valeur cible) est similaire entre les deux jeux, afin d’éviter un biais dans l’apprentissage du modèle.
+
+##### Taille des jeux de données
+
+Le premier contrôle consiste à afficher le nombre d’observations dans :
+- le dataset total,
+- le jeu d’entraînement,
+- le jeu de test.
+
+Exemple d’analyse :
+
+```python
+print("Taille totale du dataset :", len(X))
+print("Taille X_train :", len(X_train))
+print("Taille X_test  :", len(X_test))
+print("Taille y_train :", len(y_train))
+print("Taille y_test  :", len(y_test))
+```
+
+##### Répartition de la variable cible (Y)
+
+Comme la variable **passoire_energetique** est binaire, il est essentiel d’examiner sa distribution.  
+On utilise ici `value_counts(normalize=True)` afin d’obtenir les proportions.
+
+```python
+print("\nDistribution de Y_train :")
+print(Y_train.value_counts(normalize=True))
+
+print("\nDistribution de Y_test :")
+print(Y_test.value_counts(normalize=True))
+```
+
+L’objectif est que les proportions soient **relativement similaires** entre *train* et *test*, ce qui est garanti par l’option `stratify=Y` dans `train_test_split`.
+
+#### Standardisation des variables numériques
+
+La standardisation doit impérativement être effectuée **après le train/test split**.  
+En effet, appliquer un `fit_transform()` sur l’ensemble du dataset avant le découpage introduirait une **fuite d’information** : les statistiques (moyenne, écart-type) calculées sur tout le dataset intègrent alors une partie du test, ce qui biaise l’évaluation du modèle.
+
+La règle correcte est donc :
+
+- **fit uniquement sur X_train**  
+- **transform sur X_train ET X_test**
+
+```python
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+
+# Fit uniquement sur l'entraînement
+X_train[num_cols] = scaler.fit_transform(X_train[num_cols])
+
+# Transform sur l'entraînement et le test
+X_test[num_cols] = scaler.transform(X_test[num_cols])
+
+print("Standardisation terminée (post-split).")
+
+X_test
+```
+
+Cette approche garantit que le modèle n’a accès à aucune information provenant du jeu de test pendant la phase d’entraînement.
+
+#### Conclusion
+
+Le pipeline de preprocessing présenté ici constitue un flux complet et fiable pour préparer un dataset avant toute modélisation ML.  
+Il couvre :
+
+- la sélection des variables  
+- l'analyse des valeurs manquantes  
+- la suppression des colonnes trop incomplètes  
+- l’imputation robuste  
+- la création d’une cible pertinente  
+- l’encodage des variables catégorielles  
+- le traitement des outliers  
+- la séparation train/test  
+- la standardisation  
+
+Ce cadre constitue une base solide des bonnes pratiques du preprocessing.
+
+
 ## Arbres de décision pour la classification
 
 ### Introduction
@@ -345,17 +640,6 @@ Exemple de tableau de proportions des classes :
 | 0      | 0.65  | 0.65 |
 | 1      | 0.35  | 0.35 |
 
-```python
-# Exemple Python pour préparation des données
-from sklearn.model_selection import train_test_split
-
-X = df[df.columns.difference(['passoire_energetique'])]
-y = df['passoire_energetique']
-
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.3, stratify=y, random_state=42
-)
-```
 
 ### Modèle 1 :
 
@@ -385,8 +669,8 @@ from sklearn.metrics import confusion_matrix, accuracy_score, recall_score, prec
 import pandas as pd
 
 # Prédiction
- y_pred = model_arbre.predict(X_test)
- y_pred_proba = model_arbre.predict_proba(X_test)
+y_pred = model_arbre.predict(X_test)
+y_pred_proba = model_arbre.predict_proba(X_test)
 
 # Matrice de confusion
 mc = pd.DataFrame(confusion_matrix(y_test, y_pred),
@@ -409,6 +693,10 @@ print('Recall (weighted) :', recall_score(y_test, y_pred, average='weighted'))
 print('Precision (weighted) :', precision_score(y_test, y_pred, average='weighted'))
 print('F1-score (weighted) :', f1_score(y_test, y_pred, average='weighted'))
 ```
+
+- `pos_label=0` indique que **0 (False)** est considéré comme la **classe positive** pour le calcul de la précision.  
+- `average='macro'` calcule la **moyenne simple** du F1-score sur toutes les classes, sans tenir compte de leur proportion.  
+- `average='weighted'` calcule la **moyenne pondérée** du rappel (ou autre métrique) en tenant compte du **nombre d’échantillons de chaque classe**.
 
 #### Validation croisée
 
@@ -437,8 +725,8 @@ model_arbre2 = DecisionTreeClassifier(max_depth=6, min_samples_leaf=10, min_samp
 model_arbre2.fit(X_train, y_train)
 
 # Prédiction
- y_pred2 = model_arbre2.predict(X_test)
- y_pred_proba2 = model_arbre2.predict_proba(X_test)
+y_pred2 = model_arbre2.predict(X_test)
+y_pred_proba2 = model_arbre2.predict_proba(X_test)
 
 # Métriques
 print('Accuracy :', accuracy_score(y_test, y_pred2))

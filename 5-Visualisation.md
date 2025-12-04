@@ -283,13 +283,24 @@ plt.show()
 
 ### Exemple
 
+Installer la librairie dans son environnement
+
+```shell
+pip install ydata_profiling
+```
+
+puis en python
+
 ```python
-from pandas_profiling import ProfileReport
+from ydata_profiling import ProfileReport
 
 profile = ProfileReport(df, title="Profiling ADEME", explorative=True)
-profile.to_widgets()   # Affiche le rapport interactif dans Jupyter
-# ou
-profile.to_file("profiling_ademe.html")  # Exporte le rapport en HTML
+
+# Affichage interactif dans Jupyter
+profile.to_widgets()
+
+# OU export en HTML
+profile.to_file("profiling_ademe.html")
 ```
 
 Explications :  
