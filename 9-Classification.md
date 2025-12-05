@@ -393,6 +393,7 @@ cols_utiles = [
 ]
 
 df = dfDpe[cols_utiles].copy()
+df.drop_duplicates(inplace = True)
 ```
 
 ### Analyse du taux de valeurs manquantes
@@ -476,7 +477,7 @@ Les variables explicatives contiennent donc uniquement des caractéristiques du 
 vars_conso = ["conso_5_usages_ef", "conso_chauffage_ef", "conso_ecs_ef"]
 
 Y = df["passoire_energetique"]
-X = df.drop(columns=["passoire_energetique", "etiquette_dpe"] + vars_conso)
+X = df.drop(columns=["passoire_energetique", "etiquette_dpe"+ "numero_dpe"] + vars_conso)
 ```
 
 ### Encodage des variables catégorielles
@@ -505,6 +506,7 @@ for c in num_cols:
     X[c] = manage_outlier(X[c])
 
 print("Outliers capés")
+X.describe(percentiles[0.01,0.99])
 ```
 
 ### Séparation train/test
@@ -524,7 +526,7 @@ print("Train/test split réalisé.")
 
 ### Analyse échantillon
 
-Une fois le découpage entre les jeux **X_train**, **X_test**, **Y_train** et **Y_test** effectué, il est indispensable de vérifier que l’échantillonnage est équilibré et cohérent.  
+Une fois le découpage entre les jeux **X_train**, **X_test**, **y_train** et **y_test** effectué, il est indispensable de vérifier que l’échantillonnage est équilibré et cohérent.  
 L’objectif est de s’assurer que la proportion de *passoires énergétiques* (valeur cible) est similaire entre les deux jeux, afin d’éviter un biais dans l’apprentissage du modèle.
 
 #### Taille des jeux de données
@@ -550,11 +552,11 @@ Comme la variable **passoire_energetique** est binaire, il est essentiel d’exa
 On utilise ici `value_counts(normalize=True)` afin d’obtenir les proportions.
 
 ```python
-print("\nDistribution de Y_train :")
-print(Y_train.value_counts(normalize=True))
+print("\nDistribution de y_train :")
+print(y_train.value_counts(normalize=True))
 
-print("\nDistribution de Y_test :")
-print(Y_test.value_counts(normalize=True))
+print("\nDistribution de y_test :")
+print(y_test.value_counts(normalize=True))
 ```
 
 L’objectif est que les proportions soient **relativement similaires** entre *train* et *test*, ce qui est garanti par l’option `stratify=Y` dans `train_test_split`.
@@ -852,8 +854,8 @@ import matplotlib.pyplot as plt
 
 # Probabilités de prédiction pour la classe positive
 y_proba_grid = best_model.predict_proba(X_test)[:,1]
-y_proba_model1 = model_arbre_cv.predict_proba(X_test)[:,1]
-y_proba_model2 = model_arbre_2.predict_proba(X_test)[:,1]
+y_proba_model1 = model_arbre.predict_proba(X_test)[:,1]
+y_proba_model2 = model_arbre2.predict_proba(X_test)[:,1]
 
 # Calcul ROC
 fpr_grid, tpr_grid, _ = roc_curve(y_test, y_proba_grid)
