@@ -477,7 +477,7 @@ Les variables explicatives contiennent donc uniquement des caractéristiques du 
 vars_conso = ["conso_5_usages_ef", "conso_chauffage_ef", "conso_ecs_ef"]
 
 Y = df["passoire_energetique"]
-X = df.drop(columns=["passoire_energetique", "etiquette_dpe"+ "numero_dpe"] + vars_conso)
+X = df.drop(columns=["passoire_energetique", "etiquette_dpe" , "numero_dpe"] + vars_conso)
 ```
 
 ### Encodage des variables catégorielles
