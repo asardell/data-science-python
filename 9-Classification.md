@@ -506,7 +506,7 @@ for c in num_cols:
     X[c] = manage_outlier(X[c])
 
 print("Outliers capés")
-X.describe(percentiles[0.01,0.99])
+X.describe(percentiles=[0.01,0.99])
 ```
 
 ### Séparation train/test
