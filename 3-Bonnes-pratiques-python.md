@@ -288,6 +288,15 @@ pip list
 
 ### Installer `virtualenv` (optionnel)
 
+:warning: Si vous avez plusieurs versions de python installé. Vous pouvez choisir avec quelle version vous souhaitez lancer les commandes : 
+
+```bash
+py -0p # vous indique les versions disponible
+py -3.10 --version # selon votre version qui s'affiche
+```
+
+sert à afficher toutes les installations Python détectées par le lanceur `Windows py`, ainsi que leur chemin.
+
 Python 3 inclut `venv`, mais `virtualenv` peut être utilisé pour plus de flexibilité :
 
 ```bash
@@ -308,10 +317,12 @@ Créez l'environnement appelé `env-ademe` :
 
 ```bash
 py -m venv env-ademe
+#ou
+py -3.10 -m venv env-ademe # pour choisir la bonne version python a utiliser
 ```
 
 - `-m venv` indique à Python d’exécuter le module `venv` comme script.
-- ⚠️ **Ne pas créer l’environnement dans le dossier du projet** pour éviter d’inclure des fichiers temporaires.
+- ⚠️ **Ne pas créer l’environnement dans le dossier du projet** pour éviter d’inclure des fichiers temporaires. Sauf si on veut utiliser Jupyter en localhost ou intéractif ([voir plus bas](#utiliser-jupyer-notebook-en-localhost))
 
 
 ### Activer et désactiver l’environnement
