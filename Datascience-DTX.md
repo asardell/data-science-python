@@ -27,7 +27,7 @@ Cette formation a pour objectif de découvrir les fondamentaux de la Data Scienc
 
 ### 1. Introduction à la Data Science
 
-- [Introduction à la Data Science](https://github.com/asardell/data-science-python/blob/main/1-introduction-data-science.md)
+- [Introduction à la Data Science](https://github.com/asardell/data-science-python/blob/main/1-Introduction-data-science.md)
 
 ### 2. Données et méthodes
 
