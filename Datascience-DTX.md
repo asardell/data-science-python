@@ -31,7 +31,7 @@ Cette formation a pour objectif de découvrir les fondamentaux de la Data Scienc
 
 ### 2. Données et méthodes
 
-- Rappel des indicateurs de statistiques descriptives
+- Rappel des indicateurs de statistiques descriptives (plus d'info sur [cette formation](https://github.com/asardell/STA))
 - [Collecte et préparation des données](https://github.com/asardell/data-science-python/blob/main/6-Preparation-des-donnnes.md)
 - [Machine Learning supervisé avec la Régression](https://github.com/asardell/data-science-python/blob/main/10-R%C3%A9gression.md)
 - [Machine Learning supervisé avec la Classification](https://github.com/asardell/data-science-python/blob/main/9-Classification.md)

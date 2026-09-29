@@ -316,7 +316,19 @@ Valeurs proches de 1 ou -1 = forte corrélation positive ou négative.
 Seaborn :
 
 ```python
-corr = df[['besoin_chauffage', 'conso_chauffage_ef', 'conso_ecs_ef', 'surface_habitable_logement']].corr()
+ls_columns = [
+    'besoin_chauffage',
+    'surface_habitable_logement',
+    'deperditions_enveloppe',
+    'deperditions_ponts_thermiques',
+    'deperditions_murs',
+    'deperditions_planchers_hauts',
+    'deperditions_planchers_bas',
+    'deperditions_portes',
+    'deperditions_baies_vitrees',
+    'deperditions_renouvellement_air'
+    ]
+corr = df[ls_columns].corr().round(1)
 sns.heatmap(corr, annot=True, cmap='coolwarm')
 plt.title("Heatmap des corrélations")
 plt.show()
@@ -327,9 +339,8 @@ Plotly :
 ```python
 import plotly.figure_factory as ff
 
-corr = df[['besoin_chauffage', 'conso_chauffage_ef', 'conso_ecs_ef', 'surface_habitable_logement']].corr().values
-labels = ['besoin_chauffage', 'conso_chauffage_ef', 'conso_ecs_ef', 'surface_habitable_logement']
-fig = ff.create_annotated_heatmap(corr, x=labels, y=labels, colorscale='RdBu', showscale=True)
+corr = df[ls_columns].corr().round(1).values
+fig = ff.create_annotated_heatmap(corr, x=ls_columns, y=ls_columns, colorscale='RdBu', showscale=True)
 fig.show()
 ```
 
@@ -374,10 +385,7 @@ from ydata_profiling import ProfileReport
 
 profile = ProfileReport(df, title="Profiling ADEME", explorative=True)
 
-# Affichage interactif dans Jupyter
-profile.to_widgets()
-
-# OU export en HTML
+# export en HTML
 profile.to_file("profiling_ademe.html")
 ```
 
