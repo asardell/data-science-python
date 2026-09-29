@@ -21,6 +21,11 @@
       - [Régression](#régression)
     - [Apprentissage non supervisé](#apprentissage-non-supervisé)
     - [Apprentissage par renforcement](#apprentissage-par-renforcement)
+  - [IA, Machine Learning et Deep Learning](#ia-machine-learning-et-deep-learning)
+    - [Intelligence Artificielle (IA)](#intelligence-artificielle-ia)
+    - [Machine Learning (ML)](#machine-learning-ml)
+    - [Deep Learning (DL)](#deep-learning-dl)
+  - [Liens utiles :](#liens-utiles-)
 
 
 ## Qu’est-ce que la Data Science ?
@@ -271,3 +276,59 @@ Résumé final
 - Commencer par supervisé pour prédiction simple et intuitive.  
 - Explorer non supervisé pour comprendre les patterns cachés.  
 - Introduire le renforcement pour montrer comment un système peut apprendre par essais/erreurs.
+
+
+## IA, Machine Learning et Deep Learning
+
+Ces trois termes sont liés, mais ils ne désignent pas la même chose.
+
+<p align="center">
+  <img src="https://cdn.prod.website-files.com/65686931f8b0bb6aed626331/673da085af8edf86b7ae565e_673da0585cb9c6370eb2ceb1_aiko%2520article%25204.png" alt="Source de l'image" width="600"/>
+</p>
+
+
+### Intelligence Artificielle (IA)
+
+L’**IA** est le domaine général qui cherche à créer des systèmes capables de réaliser des tâches nécessitant normalement une forme d’intelligence humaine.
+
+Exemples :
+- comprendre un texte
+- reconnaître une image
+- prendre une décision
+- jouer à un jeu
+- générer du contenu
+
+### Machine Learning (ML)
+
+Le **Machine Learning** est une sous-partie de l’IA.
+
+Au lieu de programmer explicitement toutes les règles, on donne au modèle des **données** à partir desquelles il apprend des relations et peut ensuite faire des prédictions ou prendre des décisions.
+
+Exemples :
+- régression linéaire
+- arbres de décision
+- Random Forest
+- KNN
+
+
+### Deep Learning (DL)
+
+Le **Deep Learning** est une sous-partie du Machine Learning basée sur des **réseaux de neurones artificiels comportant plusieurs couches**.
+
+À l’origine, les réseaux de neurones reposaient notamment sur le **perceptron**, un neurone artificiel simple. En empilant plusieurs neurones et plusieurs couches, on obtient des réseaux capables d'apprendre des représentations beaucoup plus complexes.
+
+Le Deep Learning s'est ensuite décliné en différentes architectures adaptées aux problèmes rencontrés :
+
+- **CNN** → images et vision
+- **RNN / LSTM** → séquences et séries temporelles
+- **Transformers** → texte, langage, images, etc.
+
+<p align="center">
+  <img src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*cuTSPlTq0a_327iTPJyD-Q.png" alt="Source de l'image" width="600"/>
+</p>
+
+
+
+## Liens utiles :
+
+- [Les roles data](https://learn.microsoft.com/fr-fr/training/modules/data-analytics-microsoft/3-roles?ns-enrollment-type=learningpath&ns-enrollment-id=learn-bizapps.get-started-data-analytics)

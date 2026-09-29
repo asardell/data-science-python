@@ -70,3 +70,11 @@ Ce dataset est idéal pour la formation car :
 - **Python 3.10+**  
 - **Jupyter Notebook**  
 - **VSCode**
+
+
+## Liens utiles :
+
+- [Portail data de l'ADEME](https://data.ademe.fr/)
+- [Projet porté par l'association Lattitude](https://www.opendatauniversity.org/)
+- [Présentation du défi DPE data gouv](https://defis.data.gouv.fr/defis/diagnostics-de-performance-energetique)
+- [Les roles data](https://learn.microsoft.com/fr-fr/training/modules/data-analytics-microsoft/3-roles?ns-enrollment-type=learningpath&ns-enrollment-id=learn-bizapps.get-started-data-analytics)
