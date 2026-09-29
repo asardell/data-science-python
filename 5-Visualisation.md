@@ -17,6 +17,7 @@ Nous utiliserons trois bibliothèques : Matplotlib, Seaborn, et Plotly.
   - [Graphiques univariés](#graphiques-univariés)
     - [Histogramme](#histogramme)
     - [Boxplot](#boxplot)
+    - [Diagramme](#diagramme)
   - [Graphiques bivariés](#graphiques-bivariés)
     - [Nuage de points (scatter plot)](#nuage-de-points-scatter-plot)
     - [Diagramme en barres](#diagramme-en-barres)
@@ -128,6 +129,41 @@ Explications :
 - La ligne horizontale est la médiane
 - Les points au-delà des « moustaches » sont des outliers
 
+### Diagramme
+
+```python
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+ordre_dpe = ["A", "B", "C", "D", "E", "F", "G"]
+
+couleurs_dpe = {
+    "A": "#009900",
+    "B": "#66CC33",
+    "C": "#CCFF00",
+    "D": "#FFFF00",
+    "E": "#FFCC00",
+    "F": "#FF9900",
+    "G": "#FF0000"
+}
+
+sns.countplot(
+    data=df,
+    x="etiquette_dpe",
+    order=ordre_dpe,
+    hue="etiquette_dpe",
+    hue_order=ordre_dpe,
+    palette=couleurs_dpe,
+    legend=False
+)
+
+plt.xlabel("Étiquette DPE")
+plt.ylabel("Nombre")
+plt.title("Répartition des étiquettes DPE")
+plt.xticks(rotation=0)
+
+plt.show()
+```
 
 ## Graphiques bivariés
 
@@ -159,7 +195,28 @@ plt.show()
 Plotly :
 
 ```python
-fig = px.scatter(df, x='surface_habitable_logement', y='besoin_chauffage', color='etiquette_dpe', title="Surface vs besoin chauffage")
+import plotly.express as px
+
+couleurs_dpe = {
+    "A": "#009900",
+    "B": "#66CC33",
+    "C": "#CCFF00",
+    "D": "#FFFF00",
+    "E": "#FFCC00",
+    "F": "#FF9900",
+    "G": "#FF0000"
+}
+
+fig = px.scatter(
+    df,
+    x="deperditions_murs",
+    y="besoin_chauffage",
+    color="etiquette_dpe",
+    color_discrete_map=couleurs_dpe,
+    category_orders={"etiquette_dpe": ["A", "B", "C", "D", "E", "F", "G"]},
+    title="Déperditions murs vs besoin chauffage"
+)
+
 fig.show()
 ```
 
@@ -170,31 +227,52 @@ Explications :
 
 ### Diagramme en barres
 
-Visualiser la répartition d’une variable catégorielle ou comparer des moyennes.
+Visualiser la répartition de deux variables catégorielles
 
-Matplotlib :
-
-```python
-df.groupby('etiquette_dpe')['besoin_chauffage'].mean().plot(kind='bar', color='lightblue')
-plt.title("Besoin chauffage moyen par étiquette DPE")
-plt.ylabel("kWh")
-plt.show()
-```
 
 Seaborn :
 
 ```python
-sns.barplot(x='etiquette_dpe', y='besoin_chauffage', data=df, palette='Blues_d')
-plt.title("Besoin chauffage moyen par étiquette DPE")
+import pandas as pd
+import matplotlib.pyplot as plt
+
+table = pd.crosstab(
+    df["type_energie_n1"],
+    df["etiquette_dpe"],
+    normalize="index"
+) * 100
+
+# Ordre des étiquettes
+ordre_dpe = ["A", "B", "C", "D", "E", "F", "G"]
+
+table = table.reindex(columns=ordre_dpe)
+
+# Palette DPE
+couleurs = plt.cm.RdYlGn_r(
+    [0, 1/6, 2/6, 3/6, 4/6, 5/6, 1]
+)
+
+ax = table.plot(
+    kind="barh",
+    stacked=True,
+    figsize=(14, 20),
+    color=couleurs
+)
+
+ax.set_xlabel("Pourcentage (%)")
+ax.set_ylabel("Type d'énergie")
+ax.set_title("Étiquette DPE selon le type d'énergie")
+
+ax.legend(
+    title="Étiquette DPE",
+    bbox_to_anchor=(1.02, 1),
+    loc="upper left"
+)
+
+plt.tight_layout()
 plt.show()
 ```
 
-Plotly :
-
-```python
-fig = px.bar(df.groupby('etiquette_dpe')['besoin_chauffage'].mean().reset_index(), x='etiquette_dpe', y='besoin_chauffage', title="Besoin chauffage moyen par DPE")
-fig.show()
-```
 
 ### Boxplot bivarié
 

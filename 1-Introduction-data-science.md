@@ -190,7 +190,7 @@ Pour les algorithmes classiques supervisés ou non supervisés, les données doi
 Selon que l’on dispose ou non d’une cible à prédire, les algorithmes se classent en trois grandes familles : **supervisé, non supervisé, et par renforcement**.
 
 <p align="center">
-  <img src="https://i0.wp.com/deeplylearning.fr/wp-content/uploads/2018/09/type-of-learning.png?resize=781%2C558&ssl=1" alt="Source de l'image" width="600"/>
+  <img src="https://miro.medium.com/v2/resize:fit:1400/0*tZywBN1erkeKA1zY.jpg" alt="Source de l'image" width="600"/>
 </p>
 
 
@@ -238,7 +238,7 @@ On dispose d’un **dataset avec les entrées (features)** et les **résultats c
 Aucune variable cible n’est fournie. L’algorithme cherche à **regrouper, résumer ou détecter des anomalies**.
 
 <p align="center">
-  <img src="https://scikit-learn.org/stable/_images/sphx_glr_plot_cluster_comparison_001.png" alt="Source de l'image" width="600"/>
+  <img src="https://cdn.prod.website-files.com/6735bd5025c374c2efec4e2f/6818bb3721a7f8e95cadf37a_Unsupervised-Learning.webp" alt="Source de l'image" width="600"/>
 </p>
 
 
