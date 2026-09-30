@@ -28,13 +28,14 @@ Cette formation a pour objectif de découvrir les fondamentaux de la Data Scienc
 ### 1. Introduction à la Data Science
 
 - [Introduction à la Data Science](https://github.com/asardell/data-science-python/blob/main/1-Introduction-data-science.md)
+- [Introduction au Big Data](https://github.com/asardell/data-science-python/blob/main/1-Introduction-big-data.md)
 
 ### 2. Données et méthodes
 
 - Rappel des indicateurs de statistiques descriptives (plus d'info sur [cette formation](https://github.com/asardell/STA))
 - [Collecte et préparation des données](https://github.com/asardell/data-science-python/blob/main/6-Preparation-des-donnnes.md)
-- [Machine Learning supervisé avec la Régression](https://github.com/asardell/data-science-python/blob/main/10-R%C3%A9gression.md)
 - [Machine Learning supervisé avec la Classification](https://github.com/asardell/data-science-python/blob/main/9-Classification.md)
+- [Machine Learning supervisé avec la Régression](https://github.com/asardell/data-science-python/blob/main/10-R%C3%A9gression.md)
 - [Machine Learning non supervisé](https://github.com/asardell/data-science-python/blob/main/8-Clustering.md)
 
 ### 3. Visualisation et restitution
