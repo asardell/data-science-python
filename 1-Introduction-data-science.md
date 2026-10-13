@@ -25,6 +25,7 @@
     - [Intelligence Artificielle (IA)](#intelligence-artificielle-ia)
     - [Machine Learning (ML)](#machine-learning-ml)
     - [Deep Learning (DL)](#deep-learning-dl)
+    - [IA générative (Generative AI)](#ia-générative-generative-ai)
   - [Liens utiles :](#liens-utiles-)
 
 
@@ -258,7 +259,7 @@ Réduction de dimension
   <img src="https://miro.medium.com/v2/resize:fit:1400/1*7MxNJJ9IRn9R4tf31DaCLg.png" width="600"/>
 </p>
 
-
+[Petit exemple avec Mario bros](https://www.youtube.com/watch?v=ldXxDNjS5jw)
 
 - Le modèle teste des actions, observe les conséquences et ajuste sa stratégie pour maximiser la récompense cumulée.  
 - **Exemples génériques :** jeux vidéo (AlphaGo), robotique, trading automatique.  
@@ -317,6 +318,8 @@ Le **Deep Learning** est une sous-partie du Machine Learning basée sur des **r�
 
 À l’origine, les réseaux de neurones reposaient notamment sur le **perceptron**, un neurone artificiel simple. En empilant plusieurs neurones et plusieurs couches, on obtient des réseaux capables d'apprendre des représentations beaucoup plus complexes.
 
+Visualiser la construction d'un réseau de neurone avec [Tensorflow Playground](https://playground.tensorflow.org/)
+
 Le Deep Learning s'est ensuite décliné en différentes architectures adaptées aux problèmes rencontrés :
 
 - **CNN** → images et vision
@@ -327,6 +330,26 @@ Le Deep Learning s'est ensuite décliné en différentes architectures adaptées
   <img src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*cuTSPlTq0a_327iTPJyD-Q.png" alt="Source de l'image" width="600"/>
 </p>
 
+### IA générative (Generative AI)
+
+L’**IA générative** est une branche de l’IA principalement basée sur le **Deep Learning**. Elle permet de générer de nouveaux contenus : texte, images, audio, vidéos ou code.
+
+Elle repose sur des **réseaux de neurones artificiels de grande taille**, entraînés sur de très grands volumes de données et pouvant comporter des **milliards de paramètres** ajustés pendant l’apprentissage.
+
+Les principales architectures utilisées sont :
+- **Transformers** → génération de texte et de code (LLM).
+- **Diffusion models** → génération d’images et de vidéos.
+- **GAN** → génération de données synthétiques.
+
+Exemples : ChatGPT, générateurs d’images et assistants de programmation.
+
+L’objectif est d’apprendre les structures et les régularités des données pour générer de nouveaux contenus cohérents à partir d’une instruction (*prompt*).
+
+:warning: mais attention à ne pas nous rendre plus bête !
+
+<p align="center">
+  <img src="https://storage.ghost.io/c/39/f8/39f85cc7-8637-40fc-a57c-f45754453717/content/images/2025/05/image-5.png" alt="Source de l'image" width="600"/>
+</p>
 
 
 ## Liens utiles :
