@@ -115,7 +115,7 @@ L'entreprise gère ensuite son système d'exploitation et ses applications.
 <p align="center">
   <img src="https://srgresearch-public.s3.amazonaws.com/uploads/CIS_shares.jpg" alt="Source de l'image" width="600"/>
 </p>
-
+ 
 
 👉 **IaaS = on loue l'infrastructure.**
 
